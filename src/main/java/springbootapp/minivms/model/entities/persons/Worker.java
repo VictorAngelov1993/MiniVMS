@@ -5,8 +5,14 @@ import jakarta.persistence.Entity;
 @Entity
 public class Worker extends AbstractPerson{
 
-    // TODO below should be WorkOrder not String Create it when the Work Order class is created
-    private String workOrder;
 
+    private String workOrderId;
 
+    public String getWorkOrderId() {
+        return workOrderId;
+    }
+
+    public void setWorkOrderId(String workOrderId) {
+        this.workOrderId = workOrderId;
+    }
 }

@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface WorkerRepository extends JpaRepository<Worker, UUID> {
+
+    int countAllByUsername(String username);
 }

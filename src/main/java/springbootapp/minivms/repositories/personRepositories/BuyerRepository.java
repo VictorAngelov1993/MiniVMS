@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface BuyerRepository extends JpaRepository<Buyer, UUID> {
 
+    int countAllByUsername(String username);
+
 }

@@ -30,7 +30,7 @@
     }
   }
 
-  var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var EMAIL_PATTERN = /^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*@[A-Za-z]+(-[A-Za-z]+)*(\.[A-Za-z]+(-[A-Za-z]+)*)+$/;
 
   /* ----------------------------------------------------------------- */
   /* 1. Registration: toggle Work Order ID field for Worker role        */
@@ -89,7 +89,11 @@
     field.classList.add("is-invalid");
     var feedback = field.parentElement.querySelector(".invalid-feedback");
     if (feedback && message) {
-      feedback.textContent = message;
+      // adding if statement so the error message from the DTO are displaye
+      if (!feedback.textContent) {
+        feedback.textContent = message;
+      }
+
     }
   }
 
@@ -201,6 +205,7 @@
         if (!modalEl || !window.bootstrap) {
           return;
         }
+
         evt.preventDefault();
 
         var confirmBtn = qs("[data-confirm-action]", modalEl);

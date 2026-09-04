@@ -16,6 +16,9 @@ public class SupplierService {
     }
 
     public void register(Supplier supplier) {
-
+        if(this.supplierRepository.countAllByUsername(supplier.getUsername()) == 1) {
+            throw new IllegalArgumentException("Username already exist");
+        }
+        this.supplierRepository.save(supplier);
     }
 }

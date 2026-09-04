@@ -1,0 +1,40 @@
+package springbootapp.minivms.mappers;
+
+import org.springframework.stereotype.Component;
+import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
+import springbootapp.minivms.model.entities.persons.*;
+
+import java.time.LocalDateTime;
+
+@Component
+public class MapPersonRegistrationDtoToEntity {
+
+    public Buyer registrationDtoToBuyer(PersonRegistrationDto dto) {
+        Buyer buyer = new Buyer();
+        addCommonFields(dto, buyer);
+        return buyer;
+    }
+
+    public Supplier registrationDtoToSupplier(PersonRegistrationDto dto) {
+        Supplier supplier = new Supplier();
+        addCommonFields(dto, supplier);
+        return supplier;
+    }
+
+    public Worker registrationDtoToWorker(PersonRegistrationDto dto) {
+        Worker worker = new Worker();
+        addCommonFields(dto, worker);
+        worker.setWorkOrderId(dto.getWorkOrderId());
+        return worker;
+    }
+
+    public void addCommonFields(PersonRegistrationDto dto, AbstractPerson user) {
+        user.setUsername(dto.getUsername());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setActive(true);
+        user.setCreatedOn(LocalDateTime.now());
+    }
+}

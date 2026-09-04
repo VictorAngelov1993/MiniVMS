@@ -1,19 +1,24 @@
 package springbootapp.minivms.model.dto.personDto;
 
+import jakarta.validation.constraints.*;
 import springbootapp.minivms.model.entities.persons.enums.Role;
 
 public class PersonRegistrationDto {
+
+    // I have tried to work with the jakarta.validation.constraints.* to validate the data via Annotations in the DTO
+    // ,but it's not working well with the JS that I have, so I
+    // have moved all the validation in the Service.
     private String username;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private String confirmPassword;
     private Role role;
     // The Work Order id is used only when the Role is Worker.
     private String workOrderId;
+
     public PersonRegistrationDto() {
-
-
 
     }
 
@@ -25,12 +30,12 @@ public class PersonRegistrationDto {
         this.username = username;
     }
 
-    public String getFistName() {
-        return fistName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFistName(String fistName) {
-        this.fistName = fistName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -71,5 +76,21 @@ public class PersonRegistrationDto {
 
     public void setWorkOrder(String workOrder) {
         this.workOrderId = workOrder;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getWorkOrderId() {
+        return workOrderId;
+    }
+
+    public void setWorkOrderId(String workOrderId) {
+        this.workOrderId = workOrderId;
     }
 }

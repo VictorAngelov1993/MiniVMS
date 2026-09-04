@@ -16,6 +16,10 @@ public class BuyerService {
     }
 
     public void register(Buyer buyer) {
+        if(this.buyerRepository.countAllByUsername(buyer.getUsername()) == 1) {
+            throw new IllegalArgumentException("Username already exist");
+        }
+        this.buyerRepository.save(buyer);
 
     }
 }
