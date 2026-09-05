@@ -14,7 +14,7 @@ import springbootapp.minivms.services.personServices.RegistrationService;
 @Controller
 public class RegistrationController {
 
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
 
     @Autowired
     public RegistrationController(RegistrationService registrationService) {

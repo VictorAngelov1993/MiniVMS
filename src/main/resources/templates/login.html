@@ -25,24 +25,23 @@
       <h1 class="h4 text-center mb-4">Sign in to your account</h1>
 
       <!-- Inline error area for invalid credentials -->
-      <div class="alert alert-danger form-error-alert d-none" role="alert" aria-live="assertive"></div>
-      <div class="alert alert-danger" role="alert" th:if="${loginError}">
-        Invalid username or password. Please try again.
+      <div class="alert alert-danger" role="alert" th:if="${errorMessage}">
+        <span th:text="${errorMessage}"></span>
       </div>
 
-      <form action="/login" method="post" th:action="@{/login}" data-validate novalidate>
+      <form action="/login" method="post" th:action="@{/login}" th:object="${personLoginDto}" data-validate novalidate>
         <input type="hidden" name="_csrf" th:if="${_csrf}" th:value="${_csrf.token}"/>
 
         <div class="mb-3">
           <label for="username" class="form-label">Username<span class="required-marker">*</span></label>
-          <input type="text" class="form-control" id="username" name="username" required
+          <input type="text" class="form-control" id="username" th:field="*{username}" name="username" required
                  autocomplete="username" autofocus aria-required="true">
           <div class="invalid-feedback">Username is required.</div>
         </div>
 
         <div class="mb-3">
           <label for="password" class="form-label">Password<span class="required-marker">*</span></label>
-          <input type="password" class="form-control" id="password" name="password" required
+          <input type="password" class="form-control" id="password" th:field="*{password}" name="password" required
                  autocomplete="current-password" aria-required="true">
           <div class="invalid-feedback">Password is required.</div>
         </div>

@@ -13,11 +13,11 @@ import springbootapp.minivms.model.entities.persons.Worker;
 
 @Service
 public class RegistrationService {
-    private BuyerService buyerService;
-    private SupplierService supplierService;
-    private WorkerService workerService;
-    private MapPersonRegistrationDtoToEntity mapper;
-    private PasswordEncoder passwordEncoder;
+    private final BuyerService buyerService;
+    private final SupplierService supplierService;
+    private final WorkerService workerService;
+    private final MapPersonRegistrationDtoToEntity mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationService(BuyerService buyerService,

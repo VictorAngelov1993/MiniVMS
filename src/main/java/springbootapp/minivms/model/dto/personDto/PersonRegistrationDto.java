@@ -1,6 +1,5 @@
 package springbootapp.minivms.model.dto.personDto;
 
-import jakarta.validation.constraints.*;
 import springbootapp.minivms.model.entities.persons.enums.Role;
 
 public class PersonRegistrationDto {
@@ -8,7 +7,7 @@ public class PersonRegistrationDto {
     // I have tried to work with the jakarta.validation.constraints.* to validate the data via Annotations in the DTO
     // ,but it's not working well with the JS that I have, so I
     // have moved all the validation in the Service.
-    private String username;
+    private  String username;
     private String firstName;
     private String lastName;
     private String email;
