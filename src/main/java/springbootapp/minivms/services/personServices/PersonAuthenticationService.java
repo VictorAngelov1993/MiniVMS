@@ -3,6 +3,8 @@ package springbootapp.minivms.services.personServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import springbootapp.minivms.mappers.MapAbstractPersonToLoggedUserDto;
+import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
 import springbootapp.minivms.model.entities.persons.AbstractPerson;
 import springbootapp.minivms.repositories.personRepositories.BuyerRepository;
 import springbootapp.minivms.repositories.personRepositories.SupplierRepository;
@@ -16,27 +18,33 @@ public class PersonAuthenticationService {
     private final SupplierRepository supplierRepository;
     private final WorkerRepository workerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MapAbstractPersonToLoggedUserDto mapAbstractPersonToLoggedUserDto;
 
     @Autowired
     public PersonAuthenticationService(BuyerRepository buyerRepository,
                                        SupplierRepository supplierRepository,
                                        WorkerRepository workerRepository,
-                                       PasswordEncoder passwordEncoder) {
+                                       PasswordEncoder passwordEncoder,
+                                       MapAbstractPersonToLoggedUserDto mapAbstractPersonToLoggedUserDto) {
         this.buyerRepository = buyerRepository;
         this.supplierRepository = supplierRepository;
         this.workerRepository = workerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mapAbstractPersonToLoggedUserDto = mapAbstractPersonToLoggedUserDto;
     }
 
-    public AbstractPerson authenticate(String username, String rawPassword) {
+    public LoggedUserDto authenticate(String username, String rawPassword) {
 
-        AbstractPerson person = this.findPersonByUsername(username)
+        // Checks if the Username exists if yes it will return the person if not it will throw exception
+        AbstractPerson abstractPerson = this.findPersonByUsername(username)
                                 .orElseThrow(() -> new IllegalArgumentException("Invalid Username or Password"));
 
-        if(!passwordEncoder.matches(rawPassword, person.getPassword())) {
+        // Then checks if the password is correct. If not correct it will throw exception
+        if(!passwordEncoder.matches(rawPassword, abstractPerson.getPassword())) {
             throw new IllegalArgumentException("Invalid Username or Password");
         }
-        return person;
+        // Map the abstract person to logged user dto and return the Dto.
+        return this.mapAbstractPersonToLoggedUserDto.getLoggedUser(abstractPerson);
     }
 
 

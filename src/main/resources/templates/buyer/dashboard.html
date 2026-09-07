@@ -113,28 +113,28 @@
           <div class="col-6 col-lg-3">
             <div class="stat-card">
               <div class="stat-label">Job Postings</div>
-              <div class="stat-value" th:text="${stats != null ? stats.jobPostingCount : 12}">12</div>
+              <div class="stat-value" th:text="${stats != null ? stats.jobPostingCount : 0}">0</div>
               <a class="small" href="/buyer/job-postings" th:href="@{/buyer/job-postings}">View all &rarr;</a>
             </div>
           </div>
           <div class="col-6 col-lg-3">
             <div class="stat-card">
               <div class="stat-label">Work Orders</div>
-              <div class="stat-value" th:text="${stats != null ? stats.workOrderCount : 8}">8</div>
+              <div class="stat-value" th:text="${stats != null ? stats.workOrderCount : 0}">0</div>
               <a class="small" href="/buyer/workorders" th:href="@{/buyer/workorders}">View all &rarr;</a>
             </div>
           </div>
           <div class="col-6 col-lg-3">
             <div class="stat-card">
               <div class="stat-label">Active Workers</div>
-              <div class="stat-value" th:text="${stats != null ? stats.activeWorkerCount : 6}">6</div>
+              <div class="stat-value" th:text="${stats != null ? stats.activeWorkerCount : 0}">0</div>
               <a class="small" href="/buyer/workers" th:href="@{/buyer/workers}">View all &rarr;</a>
             </div>
           </div>
           <div class="col-6 col-lg-3">
             <div class="stat-card">
               <div class="stat-label">Pending Timesheets</div>
-              <div class="stat-value" th:text="${stats != null ? stats.pendingTimesheetCount : 3}">3</div>
+              <div class="stat-value" th:text="${stats != null ? stats.pendingTimesheetCount : 0}">0</div>
               <a class="small" href="/buyer/timesheets" th:href="@{/buyer/timesheets}">View all &rarr;</a>
             </div>
           </div>

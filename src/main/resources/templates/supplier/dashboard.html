@@ -100,20 +100,20 @@
           <div class="col-6 col-lg-4">
             <div class="stat-card">
               <div class="stat-label">Job Seekers</div>
-              <div class="stat-value" th:text="${stats != null ? stats.jobSeekerCount : 15}">15</div>
+              <div class="stat-value" th:text="${stats != null ? stats.jobSeekerCount : 0}">0</div>
               <a class="small" href="/supplier/job-seekers" th:href="@{/supplier/job-seekers}">View all &rarr;</a>
             </div>
           </div>
           <div class="col-6 col-lg-4">
             <div class="stat-card">
               <div class="stat-label">Submitted Candidates</div>
-              <div class="stat-value" th:text="${stats != null ? stats.submittedCandidateCount : 5}">5</div>
+              <div class="stat-value" th:text="${stats != null ? stats.submittedCandidateCount : 0}">0</div>
             </div>
           </div>
           <div class="col-6 col-lg-4">
             <div class="stat-card">
               <div class="stat-label">Active Assignments</div>
-              <div class="stat-value" th:text="${stats != null ? stats.activeAssignmentCount : 3}">3</div>
+              <div class="stat-value" th:text="${stats != null ? stats.activeAssignmentCount : 0}">0</div>
             </div>
           </div>
         </div>

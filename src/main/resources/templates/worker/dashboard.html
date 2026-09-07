@@ -95,13 +95,13 @@
           <div class="col-6 col-lg-4">
             <div class="stat-card">
               <div class="stat-label">Assigned Work Orders</div>
-              <div class="stat-value" th:text="${stats != null ? stats.assignedWorkOrderCount : 2}">2</div>
+              <div class="stat-value" th:text="${stats != null ? stats.assignedWorkOrderCount : 0}">0</div>
             </div>
           </div>
           <div class="col-6 col-lg-4">
             <div class="stat-card">
               <div class="stat-label">Pending Timesheets</div>
-              <div class="stat-value" th:text="${stats != null ? stats.pendingTimesheetCount : 1}">1</div>
+              <div class="stat-value" th:text="${stats != null ? stats.pendingTimesheetCount : 0}">0</div>
               <a class="small" href="/worker/timesheets" th:href="@{/worker/timesheets}">View all &rarr;</a>
             </div>
           </div>

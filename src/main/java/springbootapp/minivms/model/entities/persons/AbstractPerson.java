@@ -2,11 +2,14 @@ package springbootapp.minivms.model.entities.persons;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
 public class AbstractPerson implements Person {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -95,5 +98,10 @@ public class AbstractPerson implements Person {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    @Override
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }
