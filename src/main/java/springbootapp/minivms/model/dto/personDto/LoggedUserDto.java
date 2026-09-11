@@ -4,8 +4,12 @@ import springbootapp.minivms.model.entities.persons.enums.Role;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+
 // Tomcat (and Spring Boot DevTools) sometimes serialize the session to disk when the app restarts.
 //If the object inside the session is not serializable, you get errors. That's why the logged user needs to implement the serializable
+
+// This DTO is used after the User has successfully logged in.
 public class LoggedUserDto implements Serializable {
 
     //When a class implements Serializable, Java needs a way to know:

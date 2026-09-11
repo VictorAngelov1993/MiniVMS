@@ -5,7 +5,7 @@ import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
 import springbootapp.minivms.model.entities.persons.*;
 
 import java.time.LocalDateTime;
-
+// This mapper maps the Registration Dto to the User entity.
 @Component
 public class MapPersonRegistrationDtoToEntity {
 

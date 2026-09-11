@@ -19,6 +19,7 @@ public class RegistrationService {
     private final MapPersonRegistrationDtoToEntity mapper;
     private final PasswordEncoder passwordEncoder;
 
+    // This service helps with the Registration of Users
     @Autowired
     public RegistrationService(BuyerService buyerService,
                                SupplierService supplierService,

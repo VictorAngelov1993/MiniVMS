@@ -20,6 +20,7 @@ public class PersonAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final MapAbstractPersonToLoggedUserDto mapAbstractPersonToLoggedUserDto;
 
+    // This service is used for the Login process.
     @Autowired
     public PersonAuthenticationService(BuyerRepository buyerRepository,
                                        SupplierRepository supplierRepository,

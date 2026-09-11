@@ -16,6 +16,7 @@ import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.persons.enums.Role;
 import springbootapp.minivms.services.personServices.PersonAuthenticationService;
 
+// This controller os used for the Login page
 @Controller
 public class LoginController {
 

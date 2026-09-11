@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// Central configuration class: defines beans that are shared and reused throughout the application
+
 @Configuration
 public class AppConfig {
 

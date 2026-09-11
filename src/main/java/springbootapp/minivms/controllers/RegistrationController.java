@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
 import springbootapp.minivms.services.personServices.RegistrationService;
 
+// This controller is used for the Registration Page
 @Controller
 public class RegistrationController {
 

@@ -4,7 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
-import springbootapp.minivms.model.entities.persons.AbstractPerson;
+
+// Global controller advice: adds shared model attributes to all controllers.
 
 //Instead of applying rules to just one controller, @ControllerAdvice acts as a global listener.
 // When any request hits any @Controller in your app, Spring intercepts it and applies the shared logic inside this class first.

@@ -2,6 +2,8 @@ package springbootapp.minivms.model.dto.personDto;
 
 import springbootapp.minivms.model.entities.persons.enums.Role;
 
+
+// This DTO is used for the Registration Page
 public class PersonRegistrationDto {
 
     // I have tried to work with the jakarta.validation.constraints.* to validate the data via Annotations in the DTO
