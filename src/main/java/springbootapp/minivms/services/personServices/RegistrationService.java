@@ -39,6 +39,7 @@ public class RegistrationService {
 
         // no need for default because the value is coming from a dropdown and will always be one of the tree.
         switch (personRegistrationDto.getRole()) {
+            // the .register() method checks if the Username already exists
             case BUYER -> {
                 Buyer buyer = this.mapper.registrationDtoToBuyer(personRegistrationDto);
                 this.encodePassword(buyer);

@@ -43,6 +43,8 @@ public class LoginController {
         String username = personLoginDto.getUsername();
         String password = personLoginDto.getPassword();
 
+        // TODO implement the remember me function.
+
         try{
 
             LoggedUserDto personToLogIn = this.personAuthenticationService.authenticate(username, password);
@@ -64,7 +66,12 @@ public class LoginController {
             return "login";
         }
 
+    }
 
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // destroys the session
+        return "redirect:/login";
     }
 
 

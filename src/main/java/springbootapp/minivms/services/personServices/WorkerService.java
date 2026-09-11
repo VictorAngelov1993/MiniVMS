@@ -22,6 +22,7 @@ public class WorkerService {
     }
 
     public void register(Worker worker) {
+        //Below checks if a different user role has the same Username
         if(this.workerRepository.countAllByUsername(worker.getUsername()) == 1
         || this.buyerRepository.countAllByUsername(worker.getUsername()) == 1
         || this.supplierRepository.countAllByUsername(worker.getUsername()) == 1) {

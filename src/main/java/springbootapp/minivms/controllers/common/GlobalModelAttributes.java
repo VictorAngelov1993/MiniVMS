@@ -19,4 +19,6 @@ public class GlobalModelAttributes {
     public LoggedUserDto addLoggedUserToModel(HttpSession session) {
         return (LoggedUserDto) session.getAttribute("loggedUser");
     }
+
+
 }

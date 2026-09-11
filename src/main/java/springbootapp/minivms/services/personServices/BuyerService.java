@@ -24,6 +24,7 @@ public class BuyerService {
     }
 
     public void register(Buyer buyer) {
+        //Below checks if a different user role has the same Username
         if(this.buyerRepository.countAllByUsername(buyer.getUsername()) == 1
         || this.supplierRepository.countAllByUsername(buyer.getUsername()) == 1
         || this.workerRepository.countAllByUsername(buyer.getUsername()) == 1) {
