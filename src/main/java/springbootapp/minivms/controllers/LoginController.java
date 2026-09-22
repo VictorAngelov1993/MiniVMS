@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
 import springbootapp.minivms.model.dto.personDto.PersonLoginDto;
-import springbootapp.minivms.model.entities.persons.AbstractPerson;
-import springbootapp.minivms.model.entities.persons.Buyer;
-import springbootapp.minivms.model.entities.persons.Supplier;
-import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.persons.enums.Role;
 import springbootapp.minivms.services.personServices.PersonAuthenticationService;
 
@@ -29,7 +25,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
-        // for now, I will not add Model to the login
         // todo add success message after registration
         //  and more advanced dynamic data the username to be prefilled when registration is successful
 

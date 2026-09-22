@@ -117,7 +117,9 @@
           <div class="card-body">
             <input type="hidden" name="_csrf" th:if="${_csrf}" th:value="${_csrf.token}"/>
 
-            <div class="mb-3">
+            <!--removing the drop-down because the job posting should be prepopulated read only field-->
+
+          <!--  <div class="mb-3">
               <label for="jobPostingId" class="form-label">Job Posting<span class="required-marker">*</span></label>
               <select class="form-select" id="jobPostingId" name="jobPostingId" required aria-required="true">
                 <option value="" selected disabled>Select a job posting&hellip;</option>
@@ -127,7 +129,20 @@
                 </option>
               </select>
               <div class="invalid-feedback">Please select a job posting.</div>
+            </div>-->
+
+            <div class="mb-3">
+              <label class="form-label">Job Posting</label>
+
+              <!-- Read-only display -->
+              <input type="text" class="form-control"
+                     th:value="${jobPosting.title}" readonly>
+
+              <!-- Hidden field for form submission -->
+              <input type="hidden" name="jobPostingId"
+                     th:value="${jobPosting.id}">
             </div>
+
 
             <div class="mb-3">
               <label for="workOrderId" class="form-label">Work Order ID</label>

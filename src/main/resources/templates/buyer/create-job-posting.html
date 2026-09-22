@@ -159,7 +159,10 @@
               <div class="invalid-feedback">Pay rate is required.</div>
             </div>
 
-            <div class="mb-3">
+           <!-- I have commented the below div because it is not needed.
+            The Submitting of Job Seeker lies down to the Supplier after they have received the Job Posing.-->
+
+           <!-- <div class="mb-3">
               <label for="jobSeekerId" class="form-label">Job Seeker</label>
               <select class="form-select" id="jobSeekerId" name="jobSeekerId"
                       aria-describedby="jobSeekerHelp">
@@ -171,7 +174,7 @@
               <div id="jobSeekerHelp" class="form-text">
                 Populated server-side with available job seekers. You can also assign one later when creating a work order.
               </div>
-            </div>
+            </div>-->
 
             <button type="submit" class="btn btn-primary">Create Job Posting</button>
             <a class="btn btn-link" href="/buyer/job-postings" th:href="@{/buyer/job-postings}">Cancel</a>

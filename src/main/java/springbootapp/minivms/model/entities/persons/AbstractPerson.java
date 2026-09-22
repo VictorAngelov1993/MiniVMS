@@ -2,7 +2,7 @@ package springbootapp.minivms.model.entities.persons;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,10 +30,10 @@ public class AbstractPerson implements Person {
     @Column(name = "password", nullable = false)
     private  String password;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "created_on")
+    @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
 
     public AbstractPerson() {
