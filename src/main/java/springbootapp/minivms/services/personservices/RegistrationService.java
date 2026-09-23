@@ -1,4 +1,4 @@
-package springbootapp.minivms.services.personServices;
+package springbootapp.minivms.services.personservices;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

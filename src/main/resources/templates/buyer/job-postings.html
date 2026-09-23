@@ -122,16 +122,17 @@
         <div class="empty-state" th:if="${jobPostings == null or jobPostings.isEmpty()}">
           <div class="empty-state-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></div>
           <h2 class="h5">No job postings yet</h2>
-          <p>Create your first job posting to start sourcing job seekers.</p>
+          <p>Create your first job posting to start sourcing jobseekers.</p>
           <a class="btn btn-primary" href="/buyer/create-job-posting" th:href="@{/buyer/create-job-posting}">
             Create Job Posting
           </a>
         </div>
 
         <!-- Static preview sample card (remove once server data is wired) -->
-        <div class="row d-none">
+        <!--<div class="row d-none">
           <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${posting}, detailsUrlPrefix='/buyer/job-postings/')}"></div>
-        </div>
+        </div>-->
+
       </main>
     </div>
   </div>

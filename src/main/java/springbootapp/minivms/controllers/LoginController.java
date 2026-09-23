@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
 import springbootapp.minivms.model.dto.personDto.PersonLoginDto;
 import springbootapp.minivms.model.entities.persons.enums.Role;
-import springbootapp.minivms.services.personServices.PersonAuthenticationService;
+import springbootapp.minivms.services.personservices.PersonAuthenticationService;
 
 // This controller os used for the Login page
 @Controller

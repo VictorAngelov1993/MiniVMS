@@ -1,10 +1,10 @@
-package springbootapp.minivms.services.personServices;
+package springbootapp.minivms.services.personservices;
 
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.model.entities.persons.Worker;
-import springbootapp.minivms.repositories.personRepositories.BuyerRepository;
-import springbootapp.minivms.repositories.personRepositories.SupplierRepository;
-import springbootapp.minivms.repositories.personRepositories.WorkerRepository;
+import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
+import springbootapp.minivms.repositories.personrepositories.SupplierRepository;
+import springbootapp.minivms.repositories.personrepositories.WorkerRepository;
 
 @Service
 public class WorkerService {
