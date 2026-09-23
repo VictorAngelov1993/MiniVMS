@@ -114,8 +114,28 @@
 
         <!-- Populated list (th:if renders when data exists) -->
         <div class="row" th:if="${jobPostings != null and !jobPostings.isEmpty()}">
-          <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${posting}, detailsUrlPrefix='/buyer/job-postings/')}"
-               th:each="posting : ${jobPostings}"></div>
+
+         <!-- the below commented html caused:
+
+          There was an unexpected error (type=Internal Server Error, status=500).
+          An error happened during template parsing (template: "class path resource [templates/buyer/job-postings.html]")
+          org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/buyer/job-postings.html]")-->
+
+          <!--Why the error happens with th:replace and th:each on the same tag
+          When you combine th:replace and th:each on the exact same HTML element, Thymeleaf evaluates th:replace first before th:each creates the loop context.
+          Because the loop hasn't started yet when th:replace executes, ${posting} resolves to null, causing the Property or field 'jobPostingId' cannot be found on null exception.-->
+
+          <!--<div th:replace="~{components/job-posting-card :: job-posting-card(posting=${posting}, detailsUrlPrefix='/buyer/job-postings/')}"
+               th:each="posting : ${jobPostings}"></div>-->
+
+          <!--So I am replacing it with: -->
+
+          <!-- Put th:each on the parent outer container/wrapper -->
+          <div th:each="jobPosting : ${jobPostings}">
+            <!-- Put th:replace on the inner element and pass 'job' -->
+            <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${jobPosting}, detailsUrlPrefix='/buyer/job-postings/')}"></div>
+          </div>
+
         </div>
 
         <!-- Empty state -->

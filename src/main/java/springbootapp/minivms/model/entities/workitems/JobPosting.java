@@ -20,7 +20,7 @@ public class JobPosting {
     private UUID uuid;
 
     // I am creating the JP ID as String so that in the future we can introduce Company Codes.
-    @Column(name = "job_posting_id")
+    @Column(name = "job_posting_id", unique = true)
     @NotBlank
     private String jobPostingId;
 

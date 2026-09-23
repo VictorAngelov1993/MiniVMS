@@ -4,6 +4,7 @@ import springbootapp.minivms.model.entities.persons.enums.Role;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 
 // Tomcat (and Spring Boot DevTools) sometimes serialize the session to disk when the app restarts.
@@ -22,6 +23,7 @@ public class LoggedUserDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private UUID uuid;
     private String fullName;
     private String email;
     private Role role;
@@ -63,5 +65,13 @@ public class LoggedUserDto implements Serializable {
 
     public void setRoleHomeUrl(String roleHomeUrl) {
         this.roleHomeUrl = roleHomeUrl;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 }

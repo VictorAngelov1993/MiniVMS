@@ -98,8 +98,19 @@
         <h1 class="h3 mb-4">Job Postings</h1>
 
         <div class="row" th:if="${jobPostings != null and !jobPostings.isEmpty()}">
-          <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${posting}, detailsUrlPrefix='/supplier/job-postings/')}"
-               th:each="posting : ${jobPostings}"></div>
+
+          <!--The below will cause issue, please check the job-posting.html from the buyer end for additional info as comments-->
+          <!--<div th:replace="~{components/job-posting-card :: job-posting-card(posting=${posting}, detailsUrlPrefix='/supplier/job-postings/')}"
+               th:each="posting : ${jobPostings}"></div>-->
+
+          <!--Below is the correct way to do it: th:each needs to be first -->
+
+          <div th:each="jobPosting : ${jobPostings}">
+            <!-- Put th:replace on the inner element and pass 'job' -->
+            <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${jobPosting}, detailsUrlPrefix='/supplier/job-postings/')}"></div>
+          </div>
+
+
         </div>
 
         <div class="empty-state" th:if="${jobPostings == null or jobPostings.isEmpty()}">

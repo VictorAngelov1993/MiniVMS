@@ -15,6 +15,7 @@ public class MapAbstractPersonToLoggedUserDto {
 
     public LoggedUserDto getLoggedUser(AbstractPerson abstractPerson) {
         LoggedUserDto loggedUserDto = new LoggedUserDto();
+        loggedUserDto.setUuid(abstractPerson.getUuid());
         loggedUserDto.setFullName(abstractPerson.getFullName());
         loggedUserDto.setEmail(abstractPerson.getEmail());
         if(abstractPerson instanceof Buyer) {

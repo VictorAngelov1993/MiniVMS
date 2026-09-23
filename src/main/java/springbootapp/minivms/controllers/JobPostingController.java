@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
 import springbootapp.minivms.model.entities.persons.enums.Role;
+import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
+
+import java.util.List;
 
 // This controller will handle the Job Posting request.
 
@@ -34,6 +37,9 @@ public class JobPostingController {
         if(loggedUser == null || !loggedUser.getRole().equals(Role.BUYER)) {
             return "redirect:/access-denied";
         }
+
+        List<JobPosting> jobPostings = this.jobPostingService.getJobPostingForBuyer(loggedUser.getUuid());
+        model.addAttribute("jobPostings", jobPostings);
 
 
         return "buyer/job-postings";
