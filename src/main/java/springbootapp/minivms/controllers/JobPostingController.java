@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
-import springbootapp.minivms.model.entities.persons.enums.Role;
+import springbootapp.minivms.model.entities.enums.Role;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 
@@ -41,7 +41,6 @@ public class JobPostingController {
         List<JobPosting> jobPostings = this.jobPostingService.getJobPostingForBuyer(loggedUser.getUuid());
         model.addAttribute("jobPostings", jobPostings);
 
-
         return "buyer/job-postings";
     }
 
@@ -59,6 +58,9 @@ public class JobPostingController {
         if(loggedUser == null || !loggedUser.getRole().equals(Role.SUPPLIER)) {
             return "redirect:/access-denied";
         }
+
+        List<JobPosting> supplierJobPostings = this.jobPostingService.getJobPostingForSupplier();
+        model.addAttribute("jobPostings", supplierJobPostings);
 
 
         return "supplier/job-postings";

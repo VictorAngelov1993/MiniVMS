@@ -7,7 +7,7 @@ import springbootapp.minivms.model.entities.persons.AbstractPerson;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.persons.Worker;
-import springbootapp.minivms.model.entities.persons.enums.Role;
+import springbootapp.minivms.model.entities.enums.Role;
 
 // This mapper maps user to the Logged user Dto.
 @Component

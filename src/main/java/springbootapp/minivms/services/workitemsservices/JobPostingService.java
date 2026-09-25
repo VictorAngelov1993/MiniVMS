@@ -22,4 +22,8 @@ public class JobPostingService {
         return this.jobPostingRepository.getJobPostingForBuyer(loggedUserUuid);
     }
 
+    public List<JobPosting> getJobPostingForSupplier() {
+        return this.jobPostingRepository.getJobPostingForSupplier();
+    }
+
 }

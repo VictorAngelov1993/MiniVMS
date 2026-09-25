@@ -1,6 +1,6 @@
 package springbootapp.minivms.model.dto.personDto;
 
-import springbootapp.minivms.model.entities.persons.enums.Role;
+import springbootapp.minivms.model.entities.enums.Role;
 
 
 // This DTO is used for the Registration Page

@@ -3,6 +3,7 @@ package springbootapp.minivms.model.entities.workitems;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import springbootapp.minivms.model.entities.enums.JobPostingStatus;
 import springbootapp.minivms.model.entities.persons.Buyer;
 
 import java.math.BigDecimal;
@@ -46,6 +47,8 @@ public class JobPosting {
     @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
     private Buyer buyer;
+
+    private JobPostingStatus status;
 
     public JobPosting() {
 
@@ -120,5 +123,11 @@ public class JobPosting {
         this.buyer = buyer;
     }
 
+    public JobPostingStatus getStatus() {
+        return status;
+    }
 
+    public void setStatus(JobPostingStatus status) {
+        this.status = status;
+    }
 }
