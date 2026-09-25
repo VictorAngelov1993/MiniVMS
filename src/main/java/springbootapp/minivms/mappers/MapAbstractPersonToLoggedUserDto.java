@@ -2,7 +2,7 @@ package springbootapp.minivms.mappers;
 
 
 import org.springframework.stereotype.Component;
-import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
+import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.entities.persons.AbstractPerson;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;

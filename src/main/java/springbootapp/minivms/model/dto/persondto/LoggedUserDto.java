@@ -1,4 +1,4 @@
-package springbootapp.minivms.model.dto.personDto;
+package springbootapp.minivms.model.dto.persondto;
 
 import springbootapp.minivms.model.entities.enums.Role;
 

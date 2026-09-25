@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
+import springbootapp.minivms.model.dto.persondto.PersonRegistrationDto;
 import springbootapp.minivms.services.personservices.RegistrationService;
 
 // This controller is used for the Registration Page

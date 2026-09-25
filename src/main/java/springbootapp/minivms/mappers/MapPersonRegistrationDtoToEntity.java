@@ -1,7 +1,7 @@
 package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
-import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
+import springbootapp.minivms.model.dto.persondto.PersonRegistrationDto;
 import springbootapp.minivms.model.entities.persons.*;
 
 import java.time.LocalDateTime;

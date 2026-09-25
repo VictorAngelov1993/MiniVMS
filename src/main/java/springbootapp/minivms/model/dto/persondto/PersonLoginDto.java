@@ -1,4 +1,4 @@
-package springbootapp.minivms.model.dto.personDto;
+package springbootapp.minivms.model.dto.persondto;
 
 
 // This DTO is used for the Login page

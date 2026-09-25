@@ -3,7 +3,7 @@ package springbootapp.minivms.controllers.common;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
+import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 
 // Global controller advice: adds shared model attributes to all controllers.
 

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.MapPersonRegistrationDtoToEntity;
-import springbootapp.minivms.model.dto.personDto.PersonRegistrationDto;
+import springbootapp.minivms.model.dto.persondto.PersonRegistrationDto;
 import springbootapp.minivms.model.entities.persons.AbstractPerson;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
