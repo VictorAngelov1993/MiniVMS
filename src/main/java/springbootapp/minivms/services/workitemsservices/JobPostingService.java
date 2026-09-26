@@ -63,4 +63,8 @@ public class JobPostingService {
 
     }
 
+    public int countJobPostingsForBuyer(Buyer buyer) {
+        return this.jobPostingRepository.countByBuyer(buyer);
+    }
+
 }
