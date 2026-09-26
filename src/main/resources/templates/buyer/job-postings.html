@@ -130,9 +130,9 @@
 
           <!--So I am replacing it with: -->
 
-          <!-- Put th:each on the parent outer container/wrapper -->
-          <div th:each="jobPosting : ${jobPostings}">
-            <!-- Put th:replace on the inner element and pass 'job' -->
+
+          <div class="col-12 col-md-6 col-lg-4 mb-4"
+               th:each="jobPosting : ${jobPostings}">
             <div th:replace="~{components/job-posting-card :: job-posting-card(posting=${jobPosting}, detailsUrlPrefix='/buyer/job-postings/')}"></div>
           </div>
 

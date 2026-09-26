@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import springbootapp.minivms.model.dto.personDto.LoggedUserDto;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.workitemdto.JobPostingCreateDto;
 import springbootapp.minivms.model.entities.enums.Role;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
@@ -30,10 +33,11 @@ public class JobPostingController {
     @GetMapping("/buyer/job-postings")
     public String showBuyerJobPostings(HttpSession session, Model model) {
 
-        // Getting the logged user so that we can do some valiations.
+        // Getting the logged user so that we can do some validations.
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
        // Check if the user is Buyer otherwise access-denied
         // loggedUser == null is used so that if non logged user tries to use the URL directly.
+        // TODO Create Interceptor to handle who user can access the URL. To prevent user directly typing the url
         if(loggedUser == null || !loggedUser.getRole().equals(Role.BUYER)) {
             return "redirect:/access-denied";
         }
@@ -45,8 +49,28 @@ public class JobPostingController {
     }
 
     @GetMapping("/buyer/create-job-posting")
-    public String createJobPosting() {
+    public String createJobPosting(Model model) {
+        // passing an empty Dto
+        model.addAttribute("jobPostingDto", new JobPostingCreateDto());
         return "buyer/create-job-posting";
+    }
+
+    @PostMapping("/buyer/create-job-posting")
+    public String processCreateJobPosting(@ModelAttribute("jobPostingDto") JobPostingCreateDto dto,
+                                          HttpSession session,
+                                          Model model) {
+
+        // Getting the logged user we will use it to know who user created the Job Posting
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+
+        try {
+            this.jobPostingService.createJobPosting(dto, loggedUser.getUuid());
+            return "redirect:/buyer/job-postings";
+        } catch (Exception exception) {
+            model.addAttribute("errorMessage", exception.getMessage());
+            return "/buyer/create-job-posting";
+        }
+
     }
 
     @GetMapping("/supplier/job-postings")

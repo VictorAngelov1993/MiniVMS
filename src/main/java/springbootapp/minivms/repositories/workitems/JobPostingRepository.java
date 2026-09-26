@@ -22,4 +22,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, UUID> {
         springbootapp.minivms.model.entities.enums.JobPostingStatus.FULL)
 """)
     List<JobPosting> getJobPostingForSupplier();
+
+
 }

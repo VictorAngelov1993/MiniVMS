@@ -10,7 +10,12 @@
       posting.endDate, posting.payRate, posting.status
     - detailsUrlPrefix : '/buyer/job-postings/' or '/supplier/job-postings/'
 -->
-<div th:fragment="job-posting-card(posting, detailsUrlPrefix)" class="col-12 col-md-6 col-lg-4 mb-4">
+
+ <!--below is casing issues with the UI and Thymeleaf-->
+<!--<div th:fragment="job-posting-card(posting, detailsUrlPrefix)" class="col-12 col-md-6 col-lg-4 mb-4">-->
+ <!--So I am replacing it with: -->
+
+<div th:fragment="job-posting-card(posting, detailsUrlPrefix)">
   <a class="link-plain" href="/buyer/job-postings/1"
      th:href="@{${detailsUrlPrefix} + ${posting.jobPostingId}}" aria-label="View job posting details">
     <div class="card card-compact card-clickable h-100">
