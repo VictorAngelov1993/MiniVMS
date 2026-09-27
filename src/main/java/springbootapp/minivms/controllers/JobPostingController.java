@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
 import springbootapp.minivms.model.entities.enums.Role;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
@@ -73,6 +75,21 @@ public class JobPostingController {
 
     }
 
+    @GetMapping("/buyer/job-postings/{jobPostingId}")
+    public String showBuyerJobPostingDetails(@PathVariable String jobPostingId,
+            HttpSession session, Model model) {
+        // Get the logged user to get his Job Postings
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+        // Get the Job Posting that the user has clicked
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+        // Add the Job Posting to the model
+        model.addAttribute("posting", jobPosting);
+        return "buyer/job-posting-details";
+    }
+
+    // Below are the Supplier Mappings
+    //-----------------------------------------------------------------------------
+
     @GetMapping("/supplier/job-postings")
     public String showSupplierJobPostings(HttpSession session, Model model) {
 
@@ -88,5 +105,17 @@ public class JobPostingController {
 
 
         return "supplier/job-postings";
+    }
+
+    @GetMapping("/supplier/job-postings/{jobPostingId}")
+    public String showSupplierJobPostingDetails(@PathVariable String jobPostingId,
+                                        HttpSession session, Model model) {
+        // Get the logged user to get his Job Postings
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+        // Get the Job Posting that the user has clicked
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+        // Add the Job Posting to the model
+        model.addAttribute("posting", jobPosting);
+        return "supplier/job-posting-details";
     }
 }

@@ -128,7 +128,7 @@
             </dl>
 
             <a class="btn btn-primary mt-3" href="/supplier/submit-job-seeker?jobId=1"
-               th:href="@{/supplier/submit-job-seeker(jobId=${posting != null ? posting.id : 1})}">
+               th:href="@{/supplier/submit-job-seeker(jobId=${posting != null ? posting.jobPostingId : 1})}">
               <i class="bi bi-send" aria-hidden="true"></i> Submit Job Seeker
             </a>
           </div>

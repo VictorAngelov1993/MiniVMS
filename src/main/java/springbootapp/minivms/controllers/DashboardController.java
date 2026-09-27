@@ -46,6 +46,9 @@ public class DashboardController {
         // get the Job Postings for the logged user
         int countJobPostings = this.jobPostingService.countJobPostingsForBuyer(buyer);
         stats.setJobPostingCount(countJobPostings);
+
+        // TODO later here I need to count and add the other status to the stats and then to the model.
+
         // add the status to the model so that thymeleaf can get them.
         model.addAttribute("stats", stats);
 

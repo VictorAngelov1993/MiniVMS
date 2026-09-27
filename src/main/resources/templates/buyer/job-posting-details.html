@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Page: buyer/job-posting-details.html
-  Route: GET /buyer/job-postings/{id}
+  Route: GET /buyer/job-postings/{jobPostingId}
   Model attributes expected:
     - posting (id, title, description, startDate, endDate, payRate, status, workOrderId [nullable])
 -->
@@ -148,7 +148,7 @@
               </a>
               <!-- If no Work Order exists yet -->
               <a class="btn btn-primary" th:if="${posting == null or posting.workOrderId == null}"
-                 href="/buyer/create-workorder?jobId=1" th:href="@{/buyer/create-workorder(jobId=${posting != null ? posting.id : 1})}">
+                 href="/buyer/create-workorder?jobId=1" th:href="@{/buyer/create-workorder(jobId=${posting != null ? posting.jobPostingId : 1})}">
                 <i class="bi bi-plus-lg" aria-hidden="true"></i> Create Work Order
               </a>
             </div>

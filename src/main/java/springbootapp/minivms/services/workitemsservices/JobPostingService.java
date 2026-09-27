@@ -3,6 +3,7 @@ package springbootapp.minivms.services.workitemsservices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
 import springbootapp.minivms.model.entities.enums.JobPostingStatus;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
@@ -65,6 +66,22 @@ public class JobPostingService {
 
     public int countJobPostingsForBuyer(Buyer buyer) {
         return this.jobPostingRepository.countByBuyer(buyer);
+    }
+
+    public JobPostingDetailsDto getJobPostingById(String jobPostingId) {
+        JobPostingDetailsDto jobPostingToReturn = new JobPostingDetailsDto();
+        JobPosting jobPosting = this.jobPostingRepository.getJobPostingByJobPostingId(jobPostingId);
+        jobPostingToReturn.setTitle(jobPosting.getTitle());
+        jobPostingToReturn.setStatus(jobPosting.getStatus());
+        jobPostingToReturn.setDescription(jobPosting.getDescription());
+        jobPostingToReturn.setStartDate(jobPosting.getStartDate());
+        jobPostingToReturn.setEndDate(jobPosting.getEndDate());
+        jobPostingToReturn.setPayRate(jobPosting.getPayRate());
+
+        // TODO Here when the Work Order entity is created I will need to add it to the dto jobPostingToReturn.
+
+        return jobPostingToReturn;
+
     }
 
 }

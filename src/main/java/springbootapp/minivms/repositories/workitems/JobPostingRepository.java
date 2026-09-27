@@ -26,5 +26,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, UUID> {
 
     int countByBuyer(Buyer buyer);
 
+    JobPosting getJobPostingByJobPostingId(String jobPostingId);
 
 }
