@@ -140,15 +140,26 @@
 
               <!-- Hidden field for form submission -->
               <input type="hidden" name="jobPostingId"
-                     th:value="${jobPosting.id}">
+                     th:value="${jobPosting.jobPostingId}">
             </div>
 
-
-            <div class="mb-3">
+             <!--commiting below because it is not good practice to have the user enter the WO it should be auto generated -->
+          <!--  <div class="mb-3">
               <label for="workOrderId" class="form-label">Work Order ID</label>
               <input type="text" class="form-control" id="workOrderId" name="workOrderId"
                      placeholder="Auto-generated if left blank" aria-describedby="workOrderIdHelp">
               <div id="workOrderIdHelp" class="form-text">Leave blank to auto-generate an ID.</div>
+            </div>-->
+
+            <div class="mb-3">
+              <label for="workOrderId" class="form-label">Work Order ID</label>
+              <input type="text"
+                     class="form-control"
+                     id="workOrderId"
+                     name="workOrderId"
+                     th:value="${generatedWorkOrderId}"
+                     readonly>
+              <div class="form-text">This ID is automatically generated.</div>
             </div>
 
             <div class="mb-3">
@@ -162,7 +173,9 @@
               <div class="invalid-feedback">Please select a job seeker.</div>
             </div>
 
-            <div class="row">
+
+            <!--Dates also should be inheritated from the JP-->
+            <!--<div class="row">
               <div class="col-md-6 mb-3">
                 <label for="startDate" class="form-label">Start Date<span class="required-marker">*</span></label>
                 <input type="date" class="form-control" id="startDate" name="startDate" required aria-required="true">
@@ -173,13 +186,56 @@
                 <input type="date" class="form-control" id="endDate" name="endDate" required aria-required="true">
                 <div class="invalid-feedback">End date is required.</div>
               </div>
+            </div>-->
+
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="startDate" class="form-label">
+                  Start Date<span class="required-marker">*</span>
+                </label>
+                <input type="date"
+                       class="form-control"
+                       id="startDate"
+                       name="startDate"
+                       th:value="${jobPosting.startDate}"
+                       readonly>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="endDate" class="form-label">
+                  End Date<span class="required-marker">*</span>
+                </label>
+                <input type="date"
+                       class="form-control"
+                       id="endDate"
+                       name="endDate"
+                       th:value="${jobPosting.endDate}"
+                       readonly>
+
+              </div>
             </div>
 
-            <div class="mb-3">
+            <!--Replacing the pay rate this because the commented one will not prepopulate the pay rate-->
+           <!-- <div class="mb-3">
               <label for="payRateOverride" class="form-label">Pay Rate Override ($/hr)</label>
               <input type="number" step="0.01" min="0" class="form-control" id="payRateOverride" name="payRateOverride"
                      aria-describedby="payRateOverrideHelp">
               <div id="payRateOverrideHelp" class="form-text">Leave blank to use the job posting's default pay rate.</div>
+            </div>-->
+
+            <div class="mb-3">
+              <label for="payRateOverride" class="form-label">Pay Rate ($/hr)</label>
+              <input type="number"
+                     step="0.01"
+                     min="0"
+                     class="form-control"
+                     id="payRateOverride"
+                     name="payRateOverride"
+                     th:value="${jobPosting.payRate}">
+              <div id="payRateOverrideHelp" class="form-text">
+                Pre-filled with job posting default rate. Modify to override.
+              </div>
             </div>
 
             <div class="mb-3">

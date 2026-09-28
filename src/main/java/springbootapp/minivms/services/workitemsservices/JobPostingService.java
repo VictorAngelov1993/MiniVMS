@@ -77,6 +77,7 @@ public class JobPostingService {
         jobPostingToReturn.setStartDate(jobPosting.getStartDate());
         jobPostingToReturn.setEndDate(jobPosting.getEndDate());
         jobPostingToReturn.setPayRate(jobPosting.getPayRate());
+        jobPostingToReturn.setJobPostingId(jobPostingId);
 
         // TODO Here when the Work Order entity is created I will need to add it to the dto jobPostingToReturn.
 

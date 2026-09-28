@@ -83,6 +83,7 @@ public class JobPostingController {
         // Get the Job Posting that the user has clicked
         JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
         // Add the Job Posting to the model
+        // TODO here I need to implement the method that will get the WO id if it exist and instead create WO the show WO button will appear
         model.addAttribute("posting", jobPosting);
         return "buyer/job-posting-details";
     }
