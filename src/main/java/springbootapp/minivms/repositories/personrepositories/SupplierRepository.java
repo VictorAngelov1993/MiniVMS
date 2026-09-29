@@ -13,4 +13,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
     int countAllByUsername(String username);
 
     Optional<Supplier> getSupplierByUsername(String username);
+
+    Supplier getSupplierByUuid(UUID uuid);
 }

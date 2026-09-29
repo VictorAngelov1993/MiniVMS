@@ -105,4 +105,12 @@ public class JobSeeker {
     public void setWorkOrders(List<WorkOrder> workOrders) {
         this.workOrders = workOrders;
     }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
 }

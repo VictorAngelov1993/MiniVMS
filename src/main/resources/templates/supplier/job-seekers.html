@@ -107,14 +107,16 @@
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th scope="col">Contact Info</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
               </tr>
             </thead>
             <tbody>
               <tr th:each="seeker : ${jobSeekers}">
                 <td th:text="${seeker.firstName + ' ' + seeker.lastName}">Jane Candidate</td>
                 <td th:text="${seeker.description}">Experienced full-stack developer.</td>
-                <td th:text="${seeker.contactInfo}">jane.candidate@example.com</td>
+                <td th:text="${seeker.email}">jane.candidate@example.com</td>
+                <td th:text="${seeker.phoneNumber}">0880</td>
               </tr>
             </tbody>
           </table>
