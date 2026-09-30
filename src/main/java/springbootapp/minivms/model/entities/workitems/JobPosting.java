@@ -21,7 +21,7 @@ public class JobPosting {
     private UUID uuid;
 
     // I am creating the JP ID as String so that in the future we can introduce Company Codes.
-    @Column(name = "job_posting_id", unique = true)
+    @Column(name = "job_posting_id", unique = true, nullable = false)
     @NotBlank
     private String jobPostingId;
 
@@ -47,6 +47,9 @@ public class JobPosting {
     @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
     private Buyer buyer;
+
+    @OneToMany(mappedBy = "jobPosting")
+    private List<JobSeekerSubmission> submissions = new ArrayList<>();
 
     private JobPostingStatus status;
 
@@ -129,5 +132,13 @@ public class JobPosting {
 
     public void setStatus(JobPostingStatus status) {
         this.status = status;
+    }
+
+    public List<JobSeekerSubmission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<JobSeekerSubmission> submissions) {
+        this.submissions = submissions;
     }
 }

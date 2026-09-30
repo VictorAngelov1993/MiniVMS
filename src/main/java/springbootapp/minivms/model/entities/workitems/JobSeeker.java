@@ -16,7 +16,7 @@ public class JobSeeker {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @Column(name = "job_seeker_id")
+    @Column(name = "job_seeker_id", unique = true, nullable = false)
     private String jobSeekerId;
 
     @Column(name = "first_name")
@@ -41,6 +41,9 @@ public class JobSeeker {
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "jobSeeker")
+    private List<JobSeekerSubmission> submissions = new ArrayList<>();
 
     public JobSeeker() {
 
@@ -112,5 +115,13 @@ public class JobSeeker {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public List<JobSeekerSubmission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<JobSeekerSubmission> submissions) {
+        this.submissions = submissions;
     }
 }

@@ -127,8 +127,8 @@
               <dd class="col-sm-9">$<span th:text="${posting != null ? posting.payRate : '45.00'}">45.00</span>/hr</dd>
             </dl>
 
-            <a class="btn btn-primary mt-3" href="/supplier/submit-job-seeker?jobId=1"
-               th:href="@{/supplier/submit-job-seeker(jobId=${posting != null ? posting.jobPostingId : 1})}">
+            <a class="btn btn-primary mt-3"
+               th:href="@{/supplier/submit-job-seeker(jobPostingId=${posting != null ? posting.jobPostingId : 1})}">
               <i class="bi bi-send" aria-hidden="true"></i> Submit Job Seeker
             </a>
           </div>

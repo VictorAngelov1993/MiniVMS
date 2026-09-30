@@ -2,8 +2,12 @@ package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
 import springbootapp.minivms.model.dto.workitemdto.JobSeekerCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
+import springbootapp.minivms.model.entities.workitems.JobSeekerSubmission;
+
+import java.util.List;
 
 
 @Component
@@ -19,6 +23,18 @@ public class JobSeekerMapper {
         jobSeeker.setEmail(jobSeekerCreateDto.getEmail());
         jobSeeker.setPhoneNumber(jobSeekerCreateDto.getPhoneNumber());
         return jobSeeker;
+    }
+
+    public List<JobSeekerSubmitDto> mapJobSeekersToJobSeekerSubmitDto(List<JobSeeker> jobSeekers) {
+        return jobSeekers.stream().map(this::mapJobSeekerToJobSeekerDto).toList();
+    }
+
+    private JobSeekerSubmitDto mapJobSeekerToJobSeekerDto(JobSeeker jobSeeker) {
+        JobSeekerSubmitDto jobSeekerSubmitDto = new JobSeekerSubmitDto();
+        jobSeekerSubmitDto.setJobSeekerId(jobSeeker.getJobSeekerId());
+        jobSeekerSubmitDto.setFirstName(jobSeeker.getFirstName());
+        jobSeekerSubmitDto.setLastName(jobSeeker.getLastName());
+        return jobSeekerSubmitDto;
     }
 
 }

@@ -7,9 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
 import springbootapp.minivms.model.dto.workitemdto.JobSeekerCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
+import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerService;
 
 import java.util.ArrayList;
@@ -19,9 +23,12 @@ import java.util.List;
 public class JobSeekerController {
 
     private JobSeekerService jobSeekerService;
+    private JobPostingService jobPostingService;
+
     @Autowired
-    public JobSeekerController(JobSeekerService jobSeekerService) {
+    public JobSeekerController(JobSeekerService jobSeekerService, JobPostingService jobPostingService) {
         this.jobSeekerService = jobSeekerService;
+        this.jobPostingService = jobPostingService;
     }
 
     @GetMapping("/supplier/job-seekers")
@@ -49,9 +56,29 @@ public class JobSeekerController {
 
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
 
+
+        // TODO I need to implement the method that will auto Generate the Job Seeker ID !!!!!!!!!!!
         this.jobSeekerService.createJobSeeker(jobSeekerCreateDto, loggedUser.getUuid());
 
         return "redirect:/supplier/job-seekers";
+
+    }
+
+    @GetMapping("/supplier/submit-job-seeker")
+    public String submitJobSeeker(@RequestParam String jobPostingId,
+                                  HttpSession session,
+                                  Model model) {
+
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+
+        List<JobSeekerSubmitDto> jobSeekers = this.jobSeekerService.getAllJobSeekersSuitableForSubmission();
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+
+        model.addAttribute("jobSeekers", jobSeekers);
+        model.addAttribute("jobPosting", jobPosting);
+        model.addAttribute("jobPostingId", jobPostingId);
+
+        return "/supplier/submit-job-seeker";
 
     }
 }

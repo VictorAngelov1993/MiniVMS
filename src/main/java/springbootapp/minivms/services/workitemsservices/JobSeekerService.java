@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.JobSeekerMapper;
 import springbootapp.minivms.model.dto.workitemdto.JobSeekerCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
 import springbootapp.minivms.repositories.personrepositories.SupplierRepository;
@@ -39,5 +40,10 @@ public class JobSeekerService {
         Supplier supplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
         JobSeeker jobSeeker = this.jobSeekerMapper.mapJobSeekerCreateDtoToJobSeekerEntity(jobSeekerCreateDto, supplier);
         this.jobSeekerRepository.save(jobSeeker);
+    }
+
+    public List<JobSeekerSubmitDto> getAllJobSeekersSuitableForSubmission() {
+        List<JobSeeker> jobSeekers = this.jobSeekerRepository.findAll();
+        return this.jobSeekerMapper.mapJobSeekersToJobSeekerSubmitDto(jobSeekers);
     }
 }
