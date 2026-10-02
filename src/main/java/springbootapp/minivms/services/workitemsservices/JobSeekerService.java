@@ -39,11 +39,31 @@ public class JobSeekerService {
         // Get the supplier who is logged in so to map it to the Job Seeker so that we know who created the Job Seeker
         Supplier supplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
         JobSeeker jobSeeker = this.jobSeekerMapper.mapJobSeekerCreateDtoToJobSeekerEntity(jobSeekerCreateDto, supplier);
+
+        // generate the jobseeker id and add it.
+        String jobSeekerId = this.generateJobSeekerId();
+        jobSeeker.setJobSeekerId(jobSeekerId);
+
         this.jobSeekerRepository.save(jobSeeker);
     }
 
     public List<JobSeekerSubmitDto> getAllJobSeekersSuitableForSubmission() {
         List<JobSeeker> jobSeekers = this.jobSeekerRepository.findAll();
         return this.jobSeekerMapper.mapJobSeekersToJobSeekerSubmitDto(jobSeekers);
+    }
+
+    private String generateJobSeekerId() {
+        long coundJobSeekers = this.jobSeekerRepository.count();
+        return String.format("JS-%03d", coundJobSeekers + 1);
+    }
+
+    public JobSeekerSubmitDto getJobSeekerSubmitDtoById(String jobSeekerId) {
+
+        JobSeeker jobSeeker = this.jobSeekerRepository.getJobSeekerByJobSeekerId(jobSeekerId);
+        return this.jobSeekerMapper.mapJobSeekerToJobSeekerDto(jobSeeker);
+    }
+
+    public JobSeeker getJobSeekerById(String jobSeekerId) {
+        return this.jobSeekerRepository.getJobSeekerByJobSeekerId(jobSeekerId);
     }
 }

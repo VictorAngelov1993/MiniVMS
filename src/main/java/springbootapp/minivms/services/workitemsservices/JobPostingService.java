@@ -17,8 +17,8 @@ import java.util.UUID;
 @Service
 public class JobPostingService {
 
-    private JobPostingRepository jobPostingRepository;
-    private BuyerRepository buyerRepository;
+    private final JobPostingRepository jobPostingRepository;
+    private final BuyerRepository buyerRepository;
 
     @Autowired
     public JobPostingService(JobPostingRepository jobPostingRepository,
@@ -68,7 +68,8 @@ public class JobPostingService {
         return this.jobPostingRepository.countByBuyer(buyer);
     }
 
-    public JobPostingDetailsDto getJobPostingById(String jobPostingId) {
+
+    public JobPostingDetailsDto getJobPostingCreateDtoById(String jobPostingId) {
         JobPostingDetailsDto jobPostingToReturn = new JobPostingDetailsDto();
         JobPosting jobPosting = this.jobPostingRepository.getJobPostingByJobPostingId(jobPostingId);
         jobPostingToReturn.setTitle(jobPosting.getTitle());
@@ -83,6 +84,10 @@ public class JobPostingService {
 
         return jobPostingToReturn;
 
+    }
+
+    public JobPosting getJobPostingById(String jobPostingId) {
+        return this.jobPostingRepository.getJobPostingByJobPostingId(jobPostingId);
     }
 
 }

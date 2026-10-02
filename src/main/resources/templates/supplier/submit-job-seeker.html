@@ -115,11 +115,19 @@
                         th:text="${seeker.firstName + ' ' + seeker.lastName}">
                   Jane Candidate
                 </option>
+
+                <!--the below I Have used for one debuting because the jobSeekerId was null. The problem was I did not implement the
+                generateJobSeekerId method now it created and all is working fine.
+                <option th:each="seeker : ${jobSeekers}"
+                        th:value="${seeker.jobSeekerId}"
+                        th:text="${seeker.jobSeekerId + ' | ' + seeker.firstName + ' ' + seeker.lastName}">
+                </option>-->
+
               </select>
               <div class="invalid-feedback">Please select a job seeker to submit.</div>
             </div>
 
-            <button type="button" class="btn btn-primary" data-confirm-modal="#confirmSubmitModal"
+            <button type="submit" class="btn btn-primary" data-confirm-modal="#confirmSubmitModal"
                     data-confirm-target-form="submitJobSeekerForm">
               <i class="bi bi-send" aria-hidden="true"></i> Submit Candidate
             </button>

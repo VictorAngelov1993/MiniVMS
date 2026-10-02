@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
@@ -33,7 +32,7 @@ public class WorkOrderController {
         // Add an empty WO dto that we will fill later
         model.addAttribute("workOrderCreateDto", new WorkOrderCreateDto());
         // Get the Job Posting Details some of them will be prefilled in the form.
-        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingCreateDtoById(jobPostingId);
         model.addAttribute("jobPosting", jobPosting);
         // Auto generate Work Order id and pass it
         String workOrderId = this.workOrderService.autoGenerateWorkOrderId();

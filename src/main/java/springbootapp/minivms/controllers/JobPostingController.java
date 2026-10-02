@@ -81,7 +81,7 @@ public class JobPostingController {
         // Get the logged user to get his Job Postings
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
         // Get the Job Posting that the user has clicked
-        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingCreateDtoById(jobPostingId);
         // Add the Job Posting to the model
         // TODO here I need to implement the method that will get the WO id if it exist and instead create WO the show WO button will appear
         model.addAttribute("posting", jobPosting);
@@ -114,7 +114,7 @@ public class JobPostingController {
         // Get the logged user to get his Job Postings
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
         // Get the Job Posting that the user has clicked
-        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingById(jobPostingId);
+        JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingCreateDtoById(jobPostingId);
         // Add the Job Posting to the model
         model.addAttribute("posting", jobPosting);
         return "supplier/job-posting-details";
