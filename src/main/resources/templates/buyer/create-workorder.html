@@ -166,7 +166,7 @@
               <label for="jobSeekerId" class="form-label">Assigned Job Seeker<span class="required-marker">*</span></label>
               <select class="form-select" id="jobSeekerId" name="jobSeekerId" required aria-required="true">
                 <option value="" selected disabled>Select a job seeker&hellip;</option>
-                <option th:each="seeker : ${jobSeekers}" th:value="${seeker.id}" th:text="${seeker.fullName}">
+                <option th:each="seeker : ${jobSeekers}" th:value="${seeker.jobSeekerId}" th:text="${seeker.fullName}">
                   Jane Candidate
                 </option>
               </select>

@@ -8,19 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
+import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCreateDto;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
+import springbootapp.minivms.services.workitemsservices.JobSeekerSubmissionService;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class WorkOrderController {
-    private WorkOrderService workOrderService;
-    private JobPostingService jobPostingService;
+    private final WorkOrderService workOrderService;
+    private final JobPostingService jobPostingService;
+    private final JobSeekerSubmissionService jobSeekerSubmissionService;
 
     @Autowired
-    public WorkOrderController(WorkOrderService workOrderService, JobPostingService jobPostingService) {
+    public WorkOrderController(WorkOrderService workOrderService,
+                               JobPostingService jobPostingService,
+                               JobSeekerSubmissionService jobSeekerSubmissionService) {
         this.workOrderService = workOrderService;
         this.jobPostingService = jobPostingService;
+        this.jobSeekerSubmissionService = jobSeekerSubmissionService;
     }
 
     @GetMapping("/buyer/create-workorder")
@@ -37,6 +46,10 @@ public class WorkOrderController {
         // Auto generate Work Order id and pass it
         String workOrderId = this.workOrderService.autoGenerateWorkOrderId();
         model.addAttribute("generatedWorkOrderId", workOrderId);
+        // Get all the Job Seekers who are submitted for the Job Posting.
+        List<JobSeekerSubmitDto> jobSeekers = this.jobSeekerSubmissionService.getAllJobSeekersSubmittedForThisJobPosting(jobPostingId);
+        model.addAttribute("jobSeekers", jobSeekers);
+
         return "buyer/create-workorder";
     }
 
