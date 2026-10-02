@@ -7,9 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springbootapp.minivms.model.dto.persondto.BuyerDashboardStatsDto;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.persondto.SupplierDashboardDto;
 import springbootapp.minivms.model.entities.persons.Buyer;
+import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
+import springbootapp.minivms.services.personservices.SupplierService;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
+import springbootapp.minivms.services.workitemsservices.JobSeekerService;
 
 import java.util.Optional;
 
@@ -17,13 +21,21 @@ import java.util.Optional;
 public class DashboardController {
 
     private JobPostingService jobPostingService;
+    // Below should be a Service
+    // TODO fix later
     private BuyerRepository buyerRepository;
+    private SupplierService supplierService;
+    private JobSeekerService jobSeekerService;
 
     @Autowired
     public DashboardController(JobPostingService jobPostingService,
-                               BuyerRepository buyerRepository) {
+                               BuyerRepository buyerRepository,
+                               SupplierService supplierService,
+                               JobSeekerService jobSeekerService) {
         this.jobPostingService = jobPostingService;
         this.buyerRepository = buyerRepository;
+        this.supplierService = supplierService;
+        this.jobSeekerService = jobSeekerService;
     }
 
 
@@ -57,7 +69,23 @@ public class DashboardController {
     }
 
     @GetMapping("supplier/dashboard")
-    public String goToSupplierDashboard(Model model) {
+    public String goToSupplierDashboard(Model model, HttpSession session) {
+
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+        Optional<Supplier> loggedSupplier = this.supplierService.getSupplierByUuid(loggedUser.getUuid());
+        Supplier supplier = null;
+
+        try{
+            supplier = loggedSupplier.orElseThrow(() -> new IllegalStateException("Something went wrong. Contact Support"));
+        } catch (Exception exception) {
+            model.addAttribute("errorMessage", exception.getMessage());
+            return "redirect:/access-denied";
+        }
+        SupplierDashboardDto supplierDashboardStats = new SupplierDashboardDto();
+        long countSupplierJobSeekers = this.jobSeekerService.countTheSupplierJobSeekers(supplier);
+        supplierDashboardStats.setJobSeekerCount(countSupplierJobSeekers);
+        model.addAttribute("stats", supplierDashboardStats);
+
         return "supplier/dashboard";
     }
 

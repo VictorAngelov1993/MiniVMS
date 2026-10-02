@@ -2,10 +2,14 @@ package springbootapp.minivms.services.personservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springbootapp.minivms.model.dto.persondto.SupplierDashboardDto;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
 import springbootapp.minivms.repositories.personrepositories.SupplierRepository;
 import springbootapp.minivms.repositories.personrepositories.WorkerRepository;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SupplierService {
@@ -32,4 +36,13 @@ public class SupplierService {
         }
         this.supplierRepository.save(supplier);
     }
+
+    public Optional<Supplier> getSupplierByUuid(UUID uuid) {
+        return this.supplierRepository.getSupplierByUuid(uuid);
+    }
+
+    public long countJobSeekers() {
+        return this.supplierRepository.count();
+    }
+
 }

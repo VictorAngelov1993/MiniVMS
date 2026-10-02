@@ -11,6 +11,7 @@ import springbootapp.minivms.repositories.personrepositories.SupplierRepository;
 import springbootapp.minivms.repositories.workitems.JobSeekerRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,13 +32,27 @@ public class JobSeekerService {
 
     public List<JobSeeker> getAllJobSeekersForTheSupplier(UUID supplierUuid) {
         // I will get the Supplier user here instead of the controller
-        Supplier loggedSupplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
-        return this.jobSeekerRepository.getJobSeekerBySupplier(loggedSupplier);
+        Optional <Supplier> loggedSupplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
+        Supplier supplier = null;
+        try {
+            supplier = loggedSupplier.orElseThrow(() -> new IllegalStateException("Something went wrong. Contact Support"));
+        } catch (Exception exception) {
+            // Here I will need some logger to save the logs. The change or throwing the exception is low. So I will leave it for now
+        }
+
+
+        return this.jobSeekerRepository.getJobSeekerBySupplier(supplier);
     }
 
     public void createJobSeeker(JobSeekerCreateDto jobSeekerCreateDto, UUID supplierUuid) {
         // Get the supplier who is logged in so to map it to the Job Seeker so that we know who created the Job Seeker
-        Supplier supplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
+        Optional <Supplier> loggedSupplier = this.supplierRepository.getSupplierByUuid(supplierUuid);
+        Supplier supplier = null;
+        try {
+            supplier = loggedSupplier.orElseThrow(() -> new IllegalStateException("Something went wrong. Contact Support"));
+        } catch (Exception exception) {
+            // Here I will need some logger to save the logs. The change or throwing the exception is low. So I will leave it for now
+        }
         JobSeeker jobSeeker = this.jobSeekerMapper.mapJobSeekerCreateDtoToJobSeekerEntity(jobSeekerCreateDto, supplier);
 
         // generate the jobseeker id and add it.
@@ -66,4 +81,10 @@ public class JobSeekerService {
     public JobSeeker getJobSeekerById(String jobSeekerId) {
         return this.jobSeekerRepository.getJobSeekerByJobSeekerId(jobSeekerId);
     }
+
+    public long countTheSupplierJobSeekers(Supplier supplier) {
+        return this.jobSeekerRepository.countBySupplier(supplier);
+    }
+
+
 }

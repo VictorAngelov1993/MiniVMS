@@ -14,5 +14,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
 
     Optional<Supplier> getSupplierByUsername(String username);
 
-    Supplier getSupplierByUuid(UUID uuid);
+    Optional<Supplier> getSupplierByUuid(UUID uuid);
+
 }
