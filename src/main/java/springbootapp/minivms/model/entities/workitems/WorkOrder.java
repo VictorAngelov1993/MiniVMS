@@ -50,7 +50,7 @@ public class WorkOrder {
     private Supplier supplier;
 
     @ManyToOne
-    @JoinColumn(name = "worker_id", nullable = false)
+    @JoinColumn(name = "worker_id") // the Worker should be nullabale, because first we create the WO then the Worker Registers
     private Worker worker;
 
 

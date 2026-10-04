@@ -1,23 +1,24 @@
 package springbootapp.minivms.model.dto.workitemdto;
 
-import springbootapp.minivms.model.entities.workitems.JobSeeker;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public class WorkOrderCreateDto {
-    private List<JobSeeker> jobSeekers;
+    private String jobPostingId;
+    private String jobSeekerId;
     private String notes;
+    private BigDecimal payRate;
 
     public WorkOrderCreateDto() {
 
     }
 
-    public List<JobSeeker> getJobSeekers() {
-        return jobSeekers;
+    public String getJobSeekerId() {
+        return jobSeekerId;
     }
 
-    public void setJobSeekers(List<JobSeeker> jobSeekers) {
-        this.jobSeekers = jobSeekers;
+    public void setJobSeekerId(String jobSeekerId) {
+        this.jobSeekerId = jobSeekerId;
     }
 
     public String getNotes() {
@@ -26,5 +27,21 @@ public class WorkOrderCreateDto {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public BigDecimal getPayRate() {
+        return payRate;
+    }
+
+    public void setPayRate(BigDecimal payRate) {
+        this.payRate = payRate;
+    }
+
+    public String getJobPostingId() {
+        return jobPostingId;
+    }
+
+    public void setJobPostingId(String jobPostingId) {
+        this.jobPostingId = jobPostingId;
     }
 }

@@ -114,9 +114,15 @@
         </div>
 
         <div class="row" th:if="${workOrders != null and !workOrders.isEmpty()}">
+          <th:block th:each="wo : ${workOrders}">
+            <div th:replace="~{components/workorder-card :: workorder-card(workorder=${wo})}"></div>
+          </th:block>
+        </div>
+         <!--below is problematic so I have replaced it with the above -->
+        <!--<div class="row" th:if="${workOrders != null and !workOrders.isEmpty()}">
           <div th:replace="~{components/workorder-card :: workorder-card(workorder=${wo})}"
                th:each="wo : ${workOrders}"></div>
-        </div>
+        </div>-->
 
         <div class="empty-state" th:if="${workOrders == null or workOrders.isEmpty()}">
           <div class="empty-state-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div>

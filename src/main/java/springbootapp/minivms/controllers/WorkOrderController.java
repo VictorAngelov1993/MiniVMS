@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
 import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCardDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCreateDto;
+import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerSubmissionService;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
@@ -43,7 +46,7 @@ public class WorkOrderController {
         List<WorkOrderCardDto> allWorkOrderCards = this.workOrderService.getAllWorkOrdersAsCards(loggedUser.getUuid());
         model.addAttribute("workOrders", allWorkOrderCards);
 
-        return "/buyer/workorders";
+        return "buyer/workorders";
 
     }
 
@@ -53,7 +56,7 @@ public class WorkOrderController {
                                           Model model) {
         // Get the details of the logged user
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
-        // Add an empty WO dto that we will fill later
+        // Add an empty WO dto that will be fill later
         model.addAttribute("workOrderCreateDto", new WorkOrderCreateDto());
         // Get the Job Posting Details some of them will be prefilled in the form.
         JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingCreateDtoById(jobPostingId);
@@ -68,7 +71,23 @@ public class WorkOrderController {
         return "buyer/create-workorder";
     }
 
-    // TODO create the POST method that will actually save the WO in the DB, but first I need Job Seekers
+
+    @PostMapping("/buyer/create-workorder")
+    public String createWorkOrder(@ModelAttribute("workOrderCreateDto") WorkOrderCreateDto dto,
+                                  HttpSession session,
+                                  Model model) {
+
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+        // create and save the work order in the DB.
+        try {
+            this.workOrderService.createWorOrder(dto);
+            return "redirect:/buyer/workorders";
+        } catch (Exception exception) {
+            model.addAttribute("errorMessage", exception.getMessage());
+            return "/buyer/workorders";
+        }
+    }
+
 
 
 
