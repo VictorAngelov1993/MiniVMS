@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
 import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
+import springbootapp.minivms.model.dto.workitemdto.WorkOrderCardDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCreateDto;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerSubmissionService;
@@ -16,6 +17,7 @@ import springbootapp.minivms.services.workitemsservices.WorkOrderService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class WorkOrderController {
@@ -30,6 +32,19 @@ public class WorkOrderController {
         this.workOrderService = workOrderService;
         this.jobPostingService = jobPostingService;
         this.jobSeekerSubmissionService = jobSeekerSubmissionService;
+    }
+
+    @GetMapping("/buyer/workorders")
+    public String loadTheWorkOrderList(HttpSession session,
+                                       Model model) {
+
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+        // Get all the Work Orders of the User
+        List<WorkOrderCardDto> allWorkOrderCards = this.workOrderService.getAllWorkOrdersAsCards(loggedUser.getUuid());
+        model.addAttribute("workOrders", allWorkOrderCards);
+
+        return "/buyer/workorders";
+
     }
 
     @GetMapping("/buyer/create-workorder")
@@ -54,5 +69,7 @@ public class WorkOrderController {
     }
 
     // TODO create the POST method that will actually save the WO in the DB, but first I need Job Seekers
+
+
 
 }

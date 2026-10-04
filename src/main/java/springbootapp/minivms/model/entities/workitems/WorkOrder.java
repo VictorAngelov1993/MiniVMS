@@ -2,6 +2,7 @@ package springbootapp.minivms.model.entities.workitems;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import springbootapp.minivms.model.entities.enums.WorkOrderStatus;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheet;
@@ -55,6 +56,8 @@ public class WorkOrder {
 
     @OneToMany(mappedBy = "workOrder")
     private List<TimeSheet> timeSheets = new ArrayList<>();
+
+    private WorkOrderStatus status;
 
     public WorkOrder() {
 
@@ -142,5 +145,13 @@ public class WorkOrder {
 
     public void setTimeSheets(List<TimeSheet> timeSheets) {
         this.timeSheets = timeSheets;
+    }
+
+    public WorkOrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(WorkOrderStatus status) {
+        this.status = status;
     }
 }
