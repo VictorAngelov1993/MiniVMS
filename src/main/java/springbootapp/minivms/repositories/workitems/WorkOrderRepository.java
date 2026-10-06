@@ -5,6 +5,7 @@ import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface WorkOrderRepository extends JpaRepository<WorkOrder, UUID> {
@@ -12,4 +13,6 @@ public interface WorkOrderRepository extends JpaRepository<WorkOrder, UUID> {
     List<WorkOrder> getAllByJobPosting_BuyerUuid(UUID jobPostingBuyerUuid);
 
     int countByJobPosting_Buyer(Buyer jobPostingBuyer);
+
+    Optional<WorkOrder> findWorkOrderByWorkOrderId(String workOrderId);
 }

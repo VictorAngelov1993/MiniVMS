@@ -129,8 +129,23 @@
             <dl class="row">
               <dt class="col-sm-3">Assigned Worker</dt>
               <dd class="col-sm-9">
-                <a href="/buyer/workers/1" th:href="@{'/buyer/workers/' + ${workorder != null ? workorder.assignedWorkerId : 1}}"
-                   th:text="${workorder != null ? workorder.assignedWorkerName : 'John Smith'}">John Smith</a>
+                <!--below is causing issue because the worker should be registered after the work order is created-->
+                <!--<a href="/buyer/workers/1" th:href="@{'/buyer/workers/' + ${workorder != null ? workorder.assignedWorkerId : 1}}"
+                   th:text="${workorder != null ? workorder.assignedWorkerName : 'John Smith'}">John Smith</a>-->
+                <!-- If a worker is assigned, render the clickable link -->
+                <a th:if="${workOrder != null and workOrder.assignedWorker != null}"
+                   href="/buyer/workers/1"
+                   th:href="@{'/buyer/workers/' + ${workOrder.assignedWorker.id}}"
+                   th:text="${workOrder.assignedWorker.fullName}">
+                  John Smith
+                </a>
+
+                <!-- If no worker is assigned yet, render placeholder text -->
+                <span th:unless="${workOrder != null and workOrder.assignedWorker != null}"
+                      class="text-muted fst-italic">
+   Unassigned
+</span>
+
               </dd>
 
               <dt class="col-sm-3">Start Date</dt>

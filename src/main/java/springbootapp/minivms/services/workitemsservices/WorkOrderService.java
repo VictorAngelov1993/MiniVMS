@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.WorkOrderMapper;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCardDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.WorkOrderDetailDto;
 import springbootapp.minivms.model.entities.enums.WorkOrderStatus;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
@@ -16,6 +17,7 @@ import springbootapp.minivms.repositories.workitems.JobSeekerRepository;
 import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -77,7 +79,15 @@ public class WorkOrderService {
     }
 
     public int countBuyerWorkOrders(Buyer buyer) {
+        // Count the buyer work orders
         return this.workOrderRepository.countByJobPosting_Buyer(buyer);
+    }
+
+    public WorkOrderDetailDto getWorkOrderDetails(String workOrderId) {
+        WorkOrder workOrder = this.workOrderRepository.findWorkOrderByWorkOrderId(workOrderId)
+                .orElseThrow(() -> new RuntimeException("Work Order not found with ID: " + workOrderId));
+
+        return this.workOrderMapper.mapWorkOrderToWorkOrderDetailDto(workOrder);
     }
 
 

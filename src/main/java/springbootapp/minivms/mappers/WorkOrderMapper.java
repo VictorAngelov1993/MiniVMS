@@ -2,6 +2,7 @@ package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCardDto;
+import springbootapp.minivms.model.dto.workitemdto.WorkOrderDetailDto;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 
 import java.util.List;
@@ -24,6 +25,19 @@ public class WorkOrderMapper {
         workOrderCardDto.setStartDate(workOrder.getStartDate());
         workOrderCardDto.setEndDate(workOrder.getEndDate());
         return workOrderCardDto;
+    }
+
+    public WorkOrderDetailDto mapWorkOrderToWorkOrderDetailDto(WorkOrder workOrder) {
+        WorkOrderDetailDto dto = new WorkOrderDetailDto();
+        dto.setId(workOrder.getWorkOrderId());
+        String assignedWorkerName = workOrder.getJobSeeker().getFirstName() + " " + workOrder.getJobSeeker().getLastName();
+        dto.setAssignedWorkerName(assignedWorkerName);
+        dto.setNotes(workOrder.getNotes());
+        dto.setStatus(workOrder.getStatus());
+        dto.setStartDate(workOrder.getStartDate());
+        dto.setEndDate(workOrder.getEndDate());
+        dto.setPayRate(workOrder.getPayRate());
+        return dto;
     }
 
 }
