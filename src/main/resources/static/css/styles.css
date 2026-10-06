@@ -48,10 +48,6 @@ body {
   min-height: 100vh;
 }
 
-main {
-  flex: 1 0 auto;
-}
-
 a {
   text-decoration: none;
 }
@@ -90,25 +86,17 @@ a.link-plain {
   opacity: 0.9;
 }
 
-.app-footer {
-  background-color: #fff;
-  border-top: 1px solid var(--vms-border-color);
-  padding: var(--vms-space-md) 0;
-  color: var(--vms-secondary);
-  font-size: 0.875rem;
-}
-
 /* ---------------------------------------------------------------------- */
 /* Layout: sidebar + content shell used across role sections              */
 /* ---------------------------------------------------------------------- */
 .app-shell {
-  min-height: calc(100vh - var(--vms-header-height));
+  flex: 1 0 auto; /* Pushes the footer to the bottom when content is short */
+  width: 100%;
 }
 
 .app-sidebar {
   background-color: #fff;
   border-right: 1px solid var(--vms-border-color);
-  min-height: 100%;
   padding-top: var(--vms-space-lg);
 }
 
@@ -136,6 +124,16 @@ a.link-plain {
 
 .app-content {
   padding: var(--vms-space-lg) var(--vms-space-lg) var(--vms-space-xl);
+}
+
+.app-footer {
+  flex-shrink: 0; /* Prevents footer from collapsing or getting pushed off */
+  background-color: #fff;
+  border-top: 1px solid var(--vms-border-color);
+  padding: var(--vms-space-md) 0;
+  color: var(--vms-secondary);
+  font-size: 0.875rem;
+  margin-top: auto;
 }
 
 /* ---------------------------------------------------------------------- */

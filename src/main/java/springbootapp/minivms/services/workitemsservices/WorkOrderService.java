@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.WorkOrderMapper;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCardDto;
 import springbootapp.minivms.model.dto.workitemdto.WorkOrderCreateDto;
+import springbootapp.minivms.model.entities.enums.WorkOrderStatus;
+import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
@@ -61,6 +63,7 @@ public class WorkOrderService {
         workOrder.setNotes(dto.getNotes());
         workOrder.setPayRate(dto.getPayRate());
         workOrder.setSupplier(supplier);
+        workOrder.setStatus(WorkOrderStatus.ACTIVE);
         this.workOrderRepository.save(workOrder);
 
 
@@ -71,6 +74,10 @@ public class WorkOrderService {
         // but they are not supposed to delete from the db. The DB should keep the records forever
         long workOrderCount = this.workOrderRepository.count();
         return String.format("WO-%03d", workOrderCount + 1);
+    }
+
+    public int countBuyerWorkOrders(Buyer buyer) {
+        return this.workOrderRepository.countByJobPosting_Buyer(buyer);
     }
 
 

@@ -14,28 +14,32 @@ import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
 import springbootapp.minivms.services.personservices.SupplierService;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerService;
+import springbootapp.minivms.services.workitemsservices.WorkOrderService;
 
 import java.util.Optional;
 
 @Controller
 public class DashboardController {
 
-    private JobPostingService jobPostingService;
+    private final JobPostingService jobPostingService;
     // Below should be a Service
     // TODO fix later
-    private BuyerRepository buyerRepository;
-    private SupplierService supplierService;
-    private JobSeekerService jobSeekerService;
+    private final BuyerRepository buyerRepository;
+    private final SupplierService supplierService;
+    private final JobSeekerService jobSeekerService;
+    private final WorkOrderService workOrderService;
 
     @Autowired
     public DashboardController(JobPostingService jobPostingService,
                                BuyerRepository buyerRepository,
                                SupplierService supplierService,
-                               JobSeekerService jobSeekerService) {
+                               JobSeekerService jobSeekerService,
+                               WorkOrderService workOrderService) {
         this.jobPostingService = jobPostingService;
         this.buyerRepository = buyerRepository;
         this.supplierService = supplierService;
         this.jobSeekerService = jobSeekerService;
+        this.workOrderService = workOrderService;
     }
 
 
@@ -59,6 +63,8 @@ public class DashboardController {
         int countJobPostings = this.jobPostingService.countJobPostingsForBuyer(buyer);
         stats.setJobPostingCount(countJobPostings);
 
+        int countWorkOrders = this.workOrderService.countBuyerWorkOrders(buyer);
+        stats.setWorkOrderCount(countWorkOrders);
         // TODO later here I need to count and add the other status to the stats and then to the model.
 
         // add the status to the model so that thymeleaf can get them.
