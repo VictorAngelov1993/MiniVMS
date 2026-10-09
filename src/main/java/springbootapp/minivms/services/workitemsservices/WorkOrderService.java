@@ -92,7 +92,7 @@ public class WorkOrderService {
 
     public WorkOrder getWorkOrderById(String workOrderId) {
         Optional<WorkOrder> optionalWorkOrder = this.workOrderRepository.findWorkOrderByWorkOrderId(workOrderId);
-        return optionalWorkOrder.orElseThrow(() -> new RuntimeException("Invalid Work Order"));
+        return optionalWorkOrder.orElseThrow(() -> new RuntimeException("Invalid Work Order id"));
     }
 
 

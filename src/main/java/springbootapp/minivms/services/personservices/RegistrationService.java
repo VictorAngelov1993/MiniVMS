@@ -59,6 +59,7 @@ public class RegistrationService {
                 this.supplierService.register(supplier);
             }
             case WORKER -> {
+                // If Invalid WorkOrder id is added in the registration from the below getWorkOrderById will throw the exception
                 WorkOrder workerWorkOrder = this.workOrderService.getWorkOrderById(personRegistrationDto.getWorkOrderId());
                 Worker worker = this.mapper.registrationDtoToWorker(personRegistrationDto, workerWorkOrder);
                 this.encodePassword(worker);
