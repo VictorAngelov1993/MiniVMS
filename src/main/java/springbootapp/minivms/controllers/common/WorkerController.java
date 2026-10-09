@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.workitemdto.WorkerCardDto;
 import springbootapp.minivms.services.personservices.WorkerService;
+
+import java.util.List;
 
 @Controller
 public class WorkerController {
@@ -21,6 +24,10 @@ public class WorkerController {
     public String loadWorkerListForBuyer(HttpSession session, Model model) {
 
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
-        return "";
+
+        List<WorkerCardDto> workers = this.workerService.getAllWorkerCardDto(loggedUser.getUuid());
+        model.addAttribute("workers", workers);
+
+        return "buyer/workers";
     }
 }

@@ -19,6 +19,9 @@ public class Worker extends AbstractPerson{
     @OneToMany(mappedBy = "worker")
     private List<WorkOrder> workOrders = new ArrayList<>();
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
 
 
 
@@ -36,5 +39,13 @@ public class Worker extends AbstractPerson{
 
     public void setWorkerId(String workerId) {
         this.workerId = workerId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
