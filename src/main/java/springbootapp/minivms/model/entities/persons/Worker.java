@@ -1,5 +1,6 @@
 package springbootapp.minivms.model.entities.persons;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
@@ -11,18 +12,15 @@ import java.util.List;
 public class Worker extends AbstractPerson{
 
 
-    private String workOrderId;
 
-    public String getWorkOrderId() {
-        return workOrderId;
-    }
-
-    public void setWorkOrderId(String workOrderId) {
-        this.workOrderId = workOrderId;
-    }
+    @Column(name = "worker_id")
+    private String workerId;
 
     @OneToMany(mappedBy = "worker")
     private List<WorkOrder> workOrders = new ArrayList<>();
+
+
+
 
     public List<WorkOrder> getWorkOrders() {
         return workOrders;
@@ -30,5 +28,13 @@ public class Worker extends AbstractPerson{
 
     public void setWorkOrders(List<WorkOrder> workOrders) {
         this.workOrders = workOrders;
+    }
+
+    public String getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(String workerId) {
+        this.workerId = workerId;
     }
 }

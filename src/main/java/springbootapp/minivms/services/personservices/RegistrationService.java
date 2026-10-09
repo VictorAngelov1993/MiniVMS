@@ -10,6 +10,10 @@ import springbootapp.minivms.model.entities.persons.AbstractPerson;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.persons.Worker;
+import springbootapp.minivms.model.entities.workitems.WorkOrder;
+import springbootapp.minivms.services.workitemsservices.WorkOrderService;
+
+import java.util.List;
 
 @Service
 public class RegistrationService {
@@ -18,6 +22,7 @@ public class RegistrationService {
     private final WorkerService workerService;
     private final MapPersonRegistrationDtoToEntity mapper;
     private final PasswordEncoder passwordEncoder;
+    private final WorkOrderService workOrderService;
 
     // This service helps with the Registration of Users
     @Autowired
@@ -25,12 +30,14 @@ public class RegistrationService {
                                SupplierService supplierService,
                                WorkerService workerService,
                                MapPersonRegistrationDtoToEntity mapper,
-                               PasswordEncoder passwordEncoder) {
+                               PasswordEncoder passwordEncoder,
+                               WorkOrderService workOrderService) {
         this.buyerService = buyerService;
         this.supplierService = supplierService;
         this.workerService = workerService;
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
+        this.workOrderService = workOrderService;
 
     }
 
@@ -52,7 +59,8 @@ public class RegistrationService {
                 this.supplierService.register(supplier);
             }
             case WORKER -> {
-                Worker worker = this.mapper.registrationDtoToWorker(personRegistrationDto);
+                WorkOrder workerWorkOrder = this.workOrderService.getWorkOrderById(personRegistrationDto.getWorkOrderId());
+                Worker worker = this.mapper.registrationDtoToWorker(personRegistrationDto, workerWorkOrder);
                 this.encodePassword(worker);
                 this.workerService.register(worker);
             }

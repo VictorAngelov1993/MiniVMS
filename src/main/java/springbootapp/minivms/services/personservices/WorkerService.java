@@ -28,9 +28,14 @@ public class WorkerService {
         || this.supplierRepository.countAllByUsername(worker.getUsername()) == 1) {
             throw new IllegalArgumentException("Username already exist");
         }
-        // below is preventive exception because the Work Order is not yet implemented.
-        throw new IllegalArgumentException("Worker Registration is pending implementation");
-        // TODO Add the Work Order validator HERE
-        //this.workerRepository.save(worker);
+        // The Work Order validation is happening in the Work Order Service. The Worker here will have valid Work Order.
+        worker.setWorkerId(this.generateWorkerID());
+        this.workerRepository.save(worker);
+
+    }
+
+    private String generateWorkerID() {
+        // This will fail if a worker is deleted from the database, but users should not be able to delete entities.
+        return String.format("WK-%03d", workerRepository.count() + 1);
     }
 }
