@@ -2,7 +2,6 @@ package springbootapp.minivms.model.dto.persondto;
 
 public class SupplierDashboardDto {
     private long jobSeekerCount;
-    // TODO implement a count for the Supplier Submitted count
     private long submittedCandidateCount;
     private long activeAssignmentCount;
 

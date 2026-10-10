@@ -3,7 +3,7 @@ package springbootapp.minivms.model.dto.persondto;
 public class BuyerDashboardStatsDto {
     private int jobPostingCount;
     private int workOrderCount;
-    private int activeWorkerCount;
+    private long activeWorkerCount;
     private int pendingTimesheetCount;
 
 
@@ -27,11 +27,11 @@ public class BuyerDashboardStatsDto {
         this.workOrderCount = workOrderCount;
     }
 
-    public int getActiveWorkerCount() {
+    public long getActiveWorkerCount() {
         return activeWorkerCount;
     }
 
-    public void setActiveWorkerCount(int activeWorkerCount) {
+    public void setActiveWorkerCount(long activeWorkerCount) {
         this.activeWorkerCount = activeWorkerCount;
     }
 

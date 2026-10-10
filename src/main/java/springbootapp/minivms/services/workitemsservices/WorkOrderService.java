@@ -100,5 +100,9 @@ public class WorkOrderService {
         return this.workOrderRepository.countWorkOrderByWorker(worker);
     }
 
+    public long countBuyerWorkers(UUID buyerUuid) {
+        return this.workOrderRepository.countWorkersForBuyer(buyerUuid);
+    }
+
 
 }

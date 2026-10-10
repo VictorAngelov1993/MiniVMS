@@ -71,6 +71,9 @@ public class DashboardController {
 
         int countWorkOrders = this.workOrderService.countBuyerWorkOrders(buyer);
         stats.setWorkOrderCount(countWorkOrders);
+
+        long countWorkers = this.workOrderService.countBuyerWorkers(loggedUser.getUuid());
+        stats.setActiveWorkerCount(countWorkers);
         // TODO later here I need to count and add the other status to the stats and then to the model.
 
         // add the status to the model so that thymeleaf can get them.
@@ -96,6 +99,10 @@ public class DashboardController {
         SupplierDashboardDto supplierDashboardStats = new SupplierDashboardDto();
         long countSupplierJobSeekers = this.jobSeekerService.countTheSupplierJobSeekers(supplier);
         supplierDashboardStats.setJobSeekerCount(countSupplierJobSeekers);
+        long countSubmittedJobSeekers = this.supplierService.countSubmittedJobSeekers(supplier);
+        long countActiveJobSeekers = this.supplierService.countActiveJobSeekers(supplier);
+        supplierDashboardStats.setActiveAssignmentCount(countActiveJobSeekers);
+        supplierDashboardStats.setSubmittedCandidateCount(countSubmittedJobSeekers);
         model.addAttribute("stats", supplierDashboardStats);
 
         return "supplier/dashboard";
