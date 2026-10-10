@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import springbootapp.minivms.model.dto.persondto.BuyerDashboardStatsDto;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
 import springbootapp.minivms.model.dto.persondto.SupplierDashboardDto;
+import springbootapp.minivms.model.dto.persondto.WorkerDashboardStatsDto;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
+import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
 import springbootapp.minivms.services.personservices.SupplierService;
+import springbootapp.minivms.services.personservices.WorkerService;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerService;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
@@ -28,18 +31,21 @@ public class DashboardController {
     private final SupplierService supplierService;
     private final JobSeekerService jobSeekerService;
     private final WorkOrderService workOrderService;
+    private final WorkerService workerService;
 
     @Autowired
     public DashboardController(JobPostingService jobPostingService,
                                BuyerRepository buyerRepository,
                                SupplierService supplierService,
                                JobSeekerService jobSeekerService,
-                               WorkOrderService workOrderService) {
+                               WorkOrderService workOrderService,
+                               WorkerService workerService) {
         this.jobPostingService = jobPostingService;
         this.buyerRepository = buyerRepository;
         this.supplierService = supplierService;
         this.jobSeekerService = jobSeekerService;
         this.workOrderService = workOrderService;
+        this.workerService = workerService;
     }
 
 
@@ -96,7 +102,23 @@ public class DashboardController {
     }
 
     @GetMapping("worker/dashboard")
-    public String goToWorkerDashboard(Model model) {
+    public String goToWorkerDashboard(Model model, HttpSession session) {
+        LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
+
+        Optional<Worker> optionalWorker = this.workerService.getWorkerByUuid(loggedUser.getUuid());
+        Worker worker = null;
+
+        try{
+            worker = optionalWorker.orElseThrow(() -> new IllegalStateException("Something went wrong. Contact Support"));
+        } catch (Exception exception) {
+            model.addAttribute("errorMessage", exception.getMessage());
+            return "redirect:/access-denied";
+        }
+        long countWorkerWorkOrders = this.workOrderService.countWorkerWorkOrders(worker);
+        WorkerDashboardStatsDto workerDashboardStatsDto = new WorkerDashboardStatsDto();
+        workerDashboardStatsDto.setAssignedWorkOrderCount(countWorkerWorkOrders);
+        model.addAttribute("stats", workerDashboardStatsDto);
+
         return "worker/dashboard";
     }
 

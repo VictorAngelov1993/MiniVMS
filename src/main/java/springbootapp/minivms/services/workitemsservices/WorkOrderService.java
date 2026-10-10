@@ -9,6 +9,7 @@ import springbootapp.minivms.model.dto.workitemdto.WorkOrderDetailDto;
 import springbootapp.minivms.model.entities.enums.WorkOrderStatus;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
+import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
@@ -93,6 +94,10 @@ public class WorkOrderService {
     public WorkOrder getWorkOrderById(String workOrderId) {
         Optional<WorkOrder> optionalWorkOrder = this.workOrderRepository.findWorkOrderByWorkOrderId(workOrderId);
         return optionalWorkOrder.orElseThrow(() -> new RuntimeException("Invalid Work Order id"));
+    }
+
+    public long countWorkerWorkOrders(Worker worker) {
+        return this.workOrderRepository.countWorkOrderByWorker(worker);
     }
 
 

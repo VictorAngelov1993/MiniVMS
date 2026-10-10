@@ -13,4 +13,6 @@ public interface WorkerRepository extends JpaRepository<Worker, UUID> {
     int countAllByUsername(String username);
 
     Optional<Worker> getWorkerByUsername(String username);
+
+    Optional<Worker> getWorkerByUuid(UUID uuid);
 }

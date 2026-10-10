@@ -75,4 +75,7 @@ public class WorkerService {
 
         return this.workerMapper.getWorkerCardsFromListOfWorkers(this.getAllWorkersForTheBuyer(buyerUuid));
     }
+    public Optional<Worker> getWorkerByUuid (UUID uuid) {
+        return this.workerRepository.getWorkerByUuid(uuid);
+    }
 }

@@ -2,6 +2,7 @@ package springbootapp.minivms.repositories.workitems;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import springbootapp.minivms.model.entities.persons.Buyer;
+import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface WorkOrderRepository extends JpaRepository<WorkOrder, UUID> {
     int countByJobPosting_Buyer(Buyer jobPostingBuyer);
 
     Optional<WorkOrder> findWorkOrderByWorkOrderId(String workOrderId);
+
+    long countWorkOrderByWorker(Worker worker);
 }
