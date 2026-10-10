@@ -1,5 +1,6 @@
 package springbootapp.minivms.model.entities.persons;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -16,7 +17,7 @@ public class Worker extends AbstractPerson{
     @Column(name = "worker_id")
     private String workerId;
 
-    @OneToMany(mappedBy = "worker")
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
     private List<WorkOrder> workOrders = new ArrayList<>();
 
     @Column(name = "phone_number")

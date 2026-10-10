@@ -11,6 +11,7 @@ import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
+import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class RegistrationService {
     private final MapPersonRegistrationDtoToEntity mapper;
     private final PasswordEncoder passwordEncoder;
     private final WorkOrderService workOrderService;
+    private final WorkOrderRepository workOrderRepository;
 
     // This service helps with the Registration of Users
     @Autowired
@@ -31,14 +33,14 @@ public class RegistrationService {
                                WorkerService workerService,
                                MapPersonRegistrationDtoToEntity mapper,
                                PasswordEncoder passwordEncoder,
-                               WorkOrderService workOrderService) {
+                               WorkOrderService workOrderService, WorkOrderRepository workOrderRepository) {
         this.buyerService = buyerService;
         this.supplierService = supplierService;
         this.workerService = workerService;
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
         this.workOrderService = workOrderService;
-
+        this.workOrderRepository = workOrderRepository;
     }
 
     public void registerUser(PersonRegistrationDto personRegistrationDto) {
@@ -61,9 +63,13 @@ public class RegistrationService {
             case WORKER -> {
                 // If Invalid WorkOrder id is added in the registration from the below getWorkOrderById will throw the exception
                 WorkOrder workerWorkOrder = this.workOrderService.getWorkOrderById(personRegistrationDto.getWorkOrderId());
-                Worker worker = this.mapper.registrationDtoToWorker(personRegistrationDto, workerWorkOrder);
+                Worker worker = this.mapper.registrationDtoToWorker(personRegistrationDto);
                 this.encodePassword(worker);
+                workerWorkOrder.setWorker(worker);
+                worker.getWorkOrders().add(workerWorkOrder);
+
                 this.workerService.register(worker);
+                workOrderRepository.save(workerWorkOrder);
             }
         }
     }

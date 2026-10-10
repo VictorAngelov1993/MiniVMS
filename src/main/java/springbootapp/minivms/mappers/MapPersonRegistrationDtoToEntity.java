@@ -25,12 +25,9 @@ public class MapPersonRegistrationDtoToEntity {
         return supplier;
     }
 
-    public Worker registrationDtoToWorker(PersonRegistrationDto dto, WorkOrder workerWorkOrder) {
+    public Worker registrationDtoToWorker(PersonRegistrationDto dto) {
         Worker worker = new Worker();
         addCommonFields(dto, worker);
-        List<WorkOrder> workerWorkOrders = new ArrayList<>();
-        workerWorkOrders.add(workerWorkOrder);
-        worker.setWorkOrders(workerWorkOrders);
         return worker;
     }
 
