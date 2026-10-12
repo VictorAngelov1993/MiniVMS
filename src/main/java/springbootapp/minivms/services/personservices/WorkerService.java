@@ -1,8 +1,10 @@
 package springbootapp.minivms.services.personservices;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.WorkerMapper;
 import springbootapp.minivms.model.dto.workitemdto.WorkerCardDto;
+import springbootapp.minivms.model.dto.workitemdto.WorkerDetailDto;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
@@ -25,17 +27,20 @@ public class WorkerService {
     private final SupplierRepository supplierRepository;
     private final JobPostingRepository jobPostingRepository;
     private final WorkerMapper workerMapper;
+    private final ModelMapper modelMapper;
 
     public WorkerService(WorkerRepository workerRepository,
                          BuyerRepository buyerRepository,
                          SupplierRepository supplierRepository,
                          JobPostingRepository jobPostingRepository,
-                         WorkerMapper workerMapper) {
+                         WorkerMapper workerMapper,
+                         ModelMapper modelMapper) {
         this.workerRepository = workerRepository;
         this.buyerRepository = buyerRepository;
         this.supplierRepository = supplierRepository;
         this.jobPostingRepository = jobPostingRepository;
         this.workerMapper = workerMapper;
+        this.modelMapper = modelMapper;
     }
 
     public void register(Worker worker) {
@@ -77,5 +82,17 @@ public class WorkerService {
     }
     public Optional<Worker> getWorkerByUuid (UUID uuid) {
         return this.workerRepository.getWorkerByUuid(uuid);
+    }
+
+    private Optional<Worker> getWorkerByWorkerId(String workerId) {
+        return this.workerRepository.getWorkerByWorkerId(workerId);
+    }
+
+    public WorkerDetailDto getWorkerDetailByWorkerId(String workerId) {
+        Worker worker = this.getWorkerByWorkerId(workerId).orElseThrow(() -> new RuntimeException("Invalid Worker Id"));
+        WorkerDetailDto workerDetailDto = this.modelMapper.map(worker, WorkerDetailDto.class);
+
+        return workerDetailDto;
+
     }
 }

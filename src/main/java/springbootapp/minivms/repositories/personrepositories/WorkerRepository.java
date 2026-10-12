@@ -15,4 +15,6 @@ public interface WorkerRepository extends JpaRepository<Worker, UUID> {
     Optional<Worker> getWorkerByUsername(String username);
 
     Optional<Worker> getWorkerByUuid(UUID uuid);
+
+    Optional<Worker> getWorkerByWorkerId(String workerId);
 }

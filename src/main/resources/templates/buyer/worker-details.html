@@ -122,8 +122,8 @@
                 <div class="text-muted" th:text="${worker != null ? worker.email : 'john.smith@example.com'}">
                   john.smith@example.com
                 </div>
-                <div class="text-muted" th:text="${worker != null ? worker.phone : '(555) 123-4567'}">
-                  (555) 123-4567
+                <div class="text-muted" th:text="${worker != null ? worker.phone : 'no phone number'}">
+                  no phone number
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@
         <ul class="list-group mb-4" th:if="${worker != null and worker.assignedWorkOrders != null and !worker.assignedWorkOrders.isEmpty()}">
           <li class="list-group-item d-flex justify-content-between align-items-center"
               th:each="wo : ${worker.assignedWorkOrders}">
-            <a th:href="@{'/buyer/workorders/' + ${wo.id}}" th:text="${wo.title}">WO-1001</a>
+            <a th:href="@{'/buyer/workorders/' + ${wo.workOrderId}}" th:text="${wo.workOrderId}">WO-1001</a>
             <span class="badge status-badge bg-info text-dark" th:text="${wo.status}">Active</span>
           </li>
         </ul>
