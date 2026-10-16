@@ -33,10 +33,10 @@ public class WorkOrder {
     @JoinColumn(name = "job_seeker_id", nullable = false)
     private JobSeeker jobSeeker;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
     @Column(name = "pay_rate")
@@ -54,7 +54,7 @@ public class WorkOrder {
     private Worker worker;
 
 
-    @OneToMany(mappedBy = "workOrder")
+    @OneToMany(mappedBy = "workOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TimeSheet> timeSheets = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

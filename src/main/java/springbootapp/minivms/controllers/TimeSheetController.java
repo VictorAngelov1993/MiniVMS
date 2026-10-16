@@ -26,6 +26,8 @@ public class TimeSheetController {
 
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
 
+
+
         List<TimeSheetRowDto> workerTimeSheets = this.timeSheetService.getWorkerTimeSheetsRowDto(loggedUser.getUuid());
         model.addAttribute("timesheets", workerTimeSheets);
 

@@ -103,8 +103,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr th:replace="~{components/timesheet-row :: timesheet-row(timesheet=${ts}, editUrlPrefix='/worker/timesheets/')}"
-                  th:each="ts : ${timesheets}"></tr>
+            <th:block th:each="ts : ${timesheets}">
+              <tr th:replace="~{components/timesheet-row :: timesheet-row(timesheet=${ts}, editUrlPrefix='/worker/timesheets/')}"></tr>
+            </th:block>
             </tbody>
           </table>
         </div>
