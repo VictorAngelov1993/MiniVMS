@@ -57,6 +57,7 @@ public class WorkOrder {
     @OneToMany(mappedBy = "workOrder")
     private List<TimeSheet> timeSheets = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private WorkOrderStatus status;
 
     public WorkOrder() {

@@ -1,6 +1,7 @@
 package springbootapp.minivms.model.entities.workitems.timesheets;
 
 import jakarta.persistence.*;
+import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 
 import java.time.LocalDate;
@@ -33,6 +34,12 @@ public class TimeSheet {
 
     @Column(columnDefinition = "TEXT")
     private String notes;
+
+    @Enumerated(EnumType.STRING)
+    private TimeSheetStatus status;
+
+    @Column(name = "time_sheet_id", nullable = false)
+    private String timeSheetId;
 
     public TimeSheet() {
 
@@ -83,5 +90,19 @@ public class TimeSheet {
         this.notes = notes;
     }
 
+    public TimeSheetStatus getStatus() {
+        return status;
+    }
 
+    public void setStatus(TimeSheetStatus status) {
+        this.status = status;
+    }
+
+    public String getTimeSheetId() {
+        return timeSheetId;
+    }
+
+    public void setTimeSheetId(String timeSheetId) {
+        this.timeSheetId = timeSheetId;
+    }
 }
