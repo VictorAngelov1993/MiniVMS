@@ -58,7 +58,17 @@ public class TimeSheetController {
         this.timeSheetService.submitTimeSheet(submitDto);
 
         return "redirect:/worker/timesheets";
+    }
 
+    @GetMapping("buyer/timesheets")
+    public String displayTimeSheetsForBuyer(HttpSession session, Model model) {
+        LoggedUserDto loggedUserDto = (LoggedUserDto) session.getAttribute("loggedUser");
+
+        List<TimeSheetRowDto> buyerPendingApprovalTimeSheets = this.timeSheetService.getAllTimeSheetsRowPendingApprovalForTheBuyer(loggedUserDto.getUuid());
+
+        model.addAttribute("timesheets", buyerPendingApprovalTimeSheets);
+
+        return "buyer/timesheets";
     }
 
 }

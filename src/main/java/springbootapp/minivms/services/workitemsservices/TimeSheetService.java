@@ -70,7 +70,7 @@ public class TimeSheetService {
         LocalDate end = workerWorkOrder.getEndDate();
         // below will get Monday of the starting week.
         LocalDate weekStartDay = start.with(DayOfWeek.MONDAY);
-
+        // the below generates all of the worker time sheets and place them in draft status.
         while (!weekStartDay.isAfter(end)) {
             LocalDate weekEnd = weekStartDay.plusDays(6);
 
@@ -144,6 +144,14 @@ public class TimeSheetService {
         //then we save the time sheet.
         this.timeSheetRepository.save(timeSheet);
 
+    }
+
+    public List<TimeSheetRowDto> getAllTimeSheetsRowPendingApprovalForTheBuyer(UUID buyerUuid) {
+        return this.timeSheetMapper.mapListOfTimeSheetsToListOfTimeSheetRowDto(this.getAllTimeSheetsPendingApprovalForTheBuyer(buyerUuid));
+    }
+
+    private List<TimeSheet> getAllTimeSheetsPendingApprovalForTheBuyer(UUID buyerUuid) {
+        return this.timeSheetRepository.getAllPendingApprovalTimeSheetsForTheBuyer(buyerUuid);
     }
 
 }
