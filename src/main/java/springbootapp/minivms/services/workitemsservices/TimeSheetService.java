@@ -3,15 +3,18 @@ package springbootapp.minivms.services.workitemsservices;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.TimeSheetMapper;
+import springbootapp.minivms.model.dto.workitemdto.TimeSheetEditDto;
 import springbootapp.minivms.model.dto.workitemdto.TimeSheetRowDto;
 import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheet;
+import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheetDay;
 import springbootapp.minivms.repositories.personrepositories.WorkerRepository;
 import springbootapp.minivms.repositories.workitems.TimeSheetRepository;
 import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -79,6 +82,21 @@ public class TimeSheetService {
                 timeSheet.setStatus(TimeSheetStatus.DRAFT);
                 timeSheet.setWorkOrder(workerWorkOrder);
                 timeSheet.setTimeSheetId(this.generateTimeSheetId());
+
+                for(int a = 0; a < 7; a++) {
+                    TimeSheetDay timeSheetDay = new TimeSheetDay();
+                    timeSheetDay.setTimeSheet(timeSheet);
+                    timeSheetDay.setDate(weekStartDay.plusDays(a));
+
+                    if(a < 5) {
+                        timeSheetDay.setHours(BigDecimal.valueOf(8));
+                    } else {
+                        timeSheetDay.setHours(BigDecimal.ZERO);
+                    }
+
+                    timeSheet.getDays().add(timeSheetDay);
+                }
+
                 workerWorkOrder.getTimeSheets().add(timeSheet);
                 this.workOrderRepository.save(workerWorkOrder);
 
@@ -92,6 +110,14 @@ public class TimeSheetService {
     private String generateTimeSheetId() {
         long timeSheetCount = this.timeSheetRepository.count();
         return String.format("TS-%05d", timeSheetCount + 1);
+    }
+
+    private TimeSheet getTimeSheetById(String timeSheetId) {
+        return this.timeSheetRepository.getTimeSheetByTimeSheetId(timeSheetId);
+    }
+
+    public TimeSheetEditDto getTimeSheetEditDtoById(String timeSheetId) {
+        return this.timeSheetMapper.getEditDtoFromTimeSheet(this.getTimeSheetById(timeSheetId));
     }
 
 }

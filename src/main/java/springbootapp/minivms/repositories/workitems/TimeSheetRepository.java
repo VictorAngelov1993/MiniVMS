@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface TimeSheetRepository extends JpaRepository<TimeSheet, UUID> {
 
+    TimeSheet getTimeSheetByTimeSheetId(String timeSheetId);
 }

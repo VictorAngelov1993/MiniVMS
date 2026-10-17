@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.workitemdto.TimeSheetEditDto;
 import springbootapp.minivms.model.dto.workitemdto.TimeSheetRowDto;
 import springbootapp.minivms.services.workitemsservices.TimeSheetService;
 
@@ -26,13 +28,20 @@ public class TimeSheetController {
 
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
 
-
-
+        // get all worker time sheets from all work orders and display them.
         List<TimeSheetRowDto> workerTimeSheets = this.timeSheetService.getWorkerTimeSheetsRowDto(loggedUser.getUuid());
         model.addAttribute("timesheets", workerTimeSheets);
 
-
         return "worker/timesheets";
+    }
+
+    @GetMapping("/worker/timesheets/{id}/edit")
+    public String displayTimeSheetEditPage(@PathVariable String id,
+                                           Model model) {
+        TimeSheetEditDto timeSheet = this.timeSheetService.getTimeSheetEditDtoById(id);
+        model.addAttribute("timesheet", timeSheet);
+
+        return "worker/timesheet-edit";
     }
 
 }

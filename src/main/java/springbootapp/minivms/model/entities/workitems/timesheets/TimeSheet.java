@@ -29,6 +29,7 @@ public class TimeSheet {
 
 
     @OneToMany(mappedBy = "timeSheet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("date ASC")
     private List<TimeSheetDay> days = new ArrayList<>();
 
 
