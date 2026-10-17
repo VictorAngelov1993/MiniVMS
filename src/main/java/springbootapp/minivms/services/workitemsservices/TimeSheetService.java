@@ -18,8 +18,10 @@ import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TimeSheetService {
@@ -53,7 +55,8 @@ public class TimeSheetService {
 
         List<TimeSheet> workerTimeSheets = worker.getWorkOrders().stream()
                 .flatMap(wo -> wo.getTimeSheets().stream())
-                .toList();
+                .sorted(Comparator.comparing(TimeSheet::getWeekStartDay))
+                .collect(Collectors.toList());
 
         return workerTimeSheets;
     }

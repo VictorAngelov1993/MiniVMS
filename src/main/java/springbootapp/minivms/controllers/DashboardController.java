@@ -124,6 +124,9 @@ public class DashboardController {
         long countWorkerWorkOrders = this.workOrderService.countWorkerWorkOrders(worker);
         WorkerDashboardStatsDto workerDashboardStatsDto = new WorkerDashboardStatsDto();
         workerDashboardStatsDto.setAssignedWorkOrderCount(countWorkerWorkOrders);
+        // count the worker pending time sheets, ts that are in draft or rejected status
+        long countWorkerPendingTimeSheets = this.workOrderService.countWorkerPendingTimeSheets(worker);
+        workerDashboardStatsDto.setPendingTimesheetCount(countWorkerPendingTimeSheets);
         model.addAttribute("stats", workerDashboardStatsDto);
 
         return "worker/dashboard";

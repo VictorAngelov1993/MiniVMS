@@ -15,6 +15,7 @@ import springbootapp.minivms.model.entities.workitems.JobSeeker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 import springbootapp.minivms.repositories.workitems.JobPostingRepository;
 import springbootapp.minivms.repositories.workitems.JobSeekerRepository;
+import springbootapp.minivms.repositories.workitems.TimeSheetRepository;
 import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 
 import java.util.List;
@@ -27,18 +28,21 @@ public class WorkOrderService {
     private final WorkOrderMapper workOrderMapper;
     private final JobPostingRepository jobPostingRepository;
     private final JobSeekerRepository jobSeekerRepository;
+    private final TimeSheetRepository timeSheetRepository;
 
 
     @Autowired
     public WorkOrderService(WorkOrderRepository workOrderRepository,
                             WorkOrderMapper workOrderMapper,
                             JobPostingRepository jobPostingRepository,
-                            JobSeekerRepository jobSeekerRepository
+                            JobSeekerRepository jobSeekerRepository,
+                            TimeSheetRepository timeSheetRepository
                             ) {
         this.workOrderRepository = workOrderRepository;
         this.workOrderMapper = workOrderMapper;
         this.jobPostingRepository = jobPostingRepository;
         this.jobSeekerRepository = jobSeekerRepository;
+        this.timeSheetRepository = timeSheetRepository;
     }
 
     public String autoGenerateWorkOrderId() {
@@ -102,6 +106,10 @@ public class WorkOrderService {
 
     public long countBuyerWorkers(UUID buyerUuid) {
         return this.workOrderRepository.countWorkersForBuyer(buyerUuid);
+    }
+
+    public long countWorkerPendingTimeSheets(Worker worker) {
+        return this.timeSheetRepository.countAllPendingWorkerTimeSheets(worker);
     }
 
 
