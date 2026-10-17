@@ -1,8 +1,8 @@
 package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
-import springbootapp.minivms.model.dto.workitemdto.JobSeekerCreateDto;
-import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
+import springbootapp.minivms.model.dto.workitemdto.jobseeker.JobSeekerCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.jobseeker.JobSeekerSubmitDto;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
 

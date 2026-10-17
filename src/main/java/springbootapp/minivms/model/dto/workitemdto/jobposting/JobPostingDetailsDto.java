@@ -1,24 +1,22 @@
-package springbootapp.minivms.model.dto.workitemdto;
+package springbootapp.minivms.model.dto.workitemdto.jobposting;
 
-import jakarta.validation.constraints.NotBlank;
+import springbootapp.minivms.model.entities.enums.JobPostingStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class JobPostingCreateDto {
-
-    @NotBlank
+public class JobPostingDetailsDto {
     private String title;
-    @NotBlank
+    private JobPostingStatus status;
     private String description;
-    @NotBlank
     private LocalDate startDate;
-    @NotBlank
     private LocalDate endDate;
-    @NotBlank
     private BigDecimal payRate;
+    // The below will be used if a WorkOrder is created.
+    private String workOrderId;
+    private String jobPostingId;
 
-    public JobPostingCreateDto() {
+    public JobPostingDetailsDto() {
 
     }
 
@@ -28,6 +26,14 @@ public class JobPostingCreateDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public JobPostingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(JobPostingStatus status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -60,5 +66,21 @@ public class JobPostingCreateDto {
 
     public void setPayRate(BigDecimal payRate) {
         this.payRate = payRate;
+    }
+
+    public String getWorkOrderId() {
+        return workOrderId;
+    }
+
+    public void setWorkOrderId(String workOrderId) {
+        this.workOrderId = workOrderId;
+    }
+
+    public String getJobPostingId() {
+        return jobPostingId;
+    }
+
+    public void setJobPostingId(String jobPostingId) {
+        this.jobPostingId = jobPostingId;
     }
 }

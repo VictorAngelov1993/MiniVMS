@@ -2,8 +2,8 @@ package springbootapp.minivms.services.workitemsservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springbootapp.minivms.model.dto.workitemdto.JobPostingCreateDto;
-import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
+import springbootapp.minivms.model.dto.workitemdto.jobposting.JobPostingCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.jobposting.JobPostingDetailsDto;
 import springbootapp.minivms.model.entities.enums.JobPostingStatus;
 import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.workitems.JobPosting;

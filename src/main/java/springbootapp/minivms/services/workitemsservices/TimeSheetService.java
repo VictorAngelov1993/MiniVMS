@@ -1,10 +1,11 @@
 package springbootapp.minivms.services.workitemsservices;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.TimeSheetMapper;
-import springbootapp.minivms.model.dto.workitemdto.TimeSheetEditDto;
-import springbootapp.minivms.model.dto.workitemdto.TimeSheetRowDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetDayDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetRowDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetSubmitDto;
 import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
@@ -17,7 +18,6 @@ import springbootapp.minivms.repositories.workitems.WorkOrderRepository;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -118,6 +118,29 @@ public class TimeSheetService {
 
     public TimeSheetEditDto getTimeSheetEditDtoById(String timeSheetId) {
         return this.timeSheetMapper.getEditDtoFromTimeSheet(this.getTimeSheetById(timeSheetId));
+    }
+
+    public void submitTimeSheet(TimeSheetSubmitDto timeSheetSubmitDto) {
+        // we get the timesheet from the db.
+        TimeSheet timeSheet = this.timeSheetRepository.getTimeSheetByTimeSheetId(timeSheetSubmitDto.getTimeSheetId());
+        // we set notes and status
+        timeSheet.setNotes(timeSheetSubmitDto.getNotes());
+        timeSheet.setStatus(TimeSheetStatus.SUBMITTED);
+        // now we get the list of entity TimeSheetDay
+        List<TimeSheetDay> timeSheetDays = timeSheet.getDays();
+        // we also get the data from the DTO this is coming from the front end. Whatever the user added in the ui
+        List<TimeSheetDayDto> timeSheetDayDtos = timeSheetSubmitDto.getDays();
+
+        for(int a = 0; a < timeSheetDays.size(); a++) {
+            //below we get each time sheet day from the list and we add the value from the dto
+            TimeSheetDay timeSheetDay = timeSheetDays.get(a);
+            TimeSheetDayDto timeSheetDayDto = timeSheetDayDtos.get(a);
+
+            timeSheetDay.setHours(timeSheetDayDto.getHours());
+        }
+        //then we save the time sheet.
+        this.timeSheetRepository.save(timeSheet);
+
     }
 
 }

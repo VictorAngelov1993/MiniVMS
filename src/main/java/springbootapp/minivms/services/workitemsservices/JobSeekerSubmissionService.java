@@ -3,14 +3,13 @@ package springbootapp.minivms.services.workitemsservices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.JobSeekerMapper;
-import springbootapp.minivms.model.dto.workitemdto.JobPostingDetailsDto;
-import springbootapp.minivms.model.dto.workitemdto.JobSeekerSubmitDto;
+import springbootapp.minivms.model.dto.workitemdto.jobposting.JobPostingDetailsDto;
+import springbootapp.minivms.model.dto.workitemdto.jobseeker.JobSeekerSubmitDto;
 import springbootapp.minivms.model.entities.workitems.JobPosting;
 import springbootapp.minivms.model.entities.workitems.JobSeeker;
 import springbootapp.minivms.model.entities.workitems.JobSeekerSubmission;
 import springbootapp.minivms.repositories.workitems.JobSeekerSubmissionRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

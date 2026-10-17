@@ -1,4 +1,4 @@
-package springbootapp.minivms.model.dto.workitemdto;
+package springbootapp.minivms.model.dto.workitemdto.workorder;
 
 
 import java.math.BigDecimal;

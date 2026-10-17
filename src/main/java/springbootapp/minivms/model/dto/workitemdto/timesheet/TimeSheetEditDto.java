@@ -1,4 +1,4 @@
-package springbootapp.minivms.model.dto.workitemdto;
+package springbootapp.minivms.model.dto.workitemdto.timesheet;
 
 import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheetDay;
@@ -13,7 +13,7 @@ public class TimeSheetEditDto {
     private LocalDate weekEndDate;
     private TimeSheetStatus status;
     private String id;
-    private List<TimeSheetDay> days;
+    private List<TimeSheetDayDto> days;
     private String notes;
 
     public TimeSheetEditDto() {
@@ -60,11 +60,11 @@ public class TimeSheetEditDto {
         this.id = id;
     }
 
-    public List<TimeSheetDay> getDays() {
+    public List<TimeSheetDayDto> getDays() {
         return days;
     }
 
-    public void setDays(List<TimeSheetDay> days) {
+    public void setDays(List<TimeSheetDayDto> days) {
         this.days = days;
     }
 

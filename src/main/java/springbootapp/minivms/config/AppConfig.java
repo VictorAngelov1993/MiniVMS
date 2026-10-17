@@ -5,9 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import springbootapp.minivms.model.dto.workitemdto.TimeSheetRowDto;
-import springbootapp.minivms.model.dto.workitemdto.WorkOrderDetailDto;
-import springbootapp.minivms.model.dto.workitemdto.WorkerDetailDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetRowDto;
+import springbootapp.minivms.model.dto.workitemdto.worker.WorkerDetailDto;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheet;
 

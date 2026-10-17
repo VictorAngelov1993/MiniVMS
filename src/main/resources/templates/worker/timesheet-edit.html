@@ -124,10 +124,14 @@
 
       <div class="alert alert-danger form-error-alert d-none" role="alert" aria-live="assertive"></div>
 
-      <form id="timesheetForm" action="/worker/timesheets/1/save" method="post"
-            th:action="@{'/worker/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/save'}"
+      <form id="timesheetForm" action="/worker/timesheets/1/submit" method="post"
+            th:action="@{'/worker/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/submit'}"
+            th:object="${timesheet}"
             data-validate novalidate>
         <input type="hidden" name="_csrf" th:if="${_csrf}" th:value="${_csrf.token}"/>
+
+        <!-- Add hidden field for timeSheetId so it binds to DTO -->
+        <input type="hidden" th:field="*{id}" name="timeSheetId" />
 
         <div class="table-responsive">
           <table class="table table-bordered timesheet-table" data-editable aria-label="Weekly timesheet (editable)">
@@ -143,47 +147,18 @@
             </tr>
             </thead>
             <tbody>
+            <!-- Iterate over the days list using th:each with a status variable (stat) -->
             <tr>
-              <td>
-                <label for="mon" class="visually-hidden">Monday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="mon" name="mon"
-                       th:value="${timesheet.days[0].hours}" value="8.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="tue" class="visually-hidden">Tuesday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="tue" name="tue"
-                       th:value="${timesheet.days[1].hours}" value="8.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="wed" class="visually-hidden">Wednesday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="wed" name="wed"
-                       th:value="${timesheet.days[2].hours}" value="8.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="thu" class="visually-hidden">Thursday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="thu" name="thu"
-                       th:value="${timesheet.days[3].hours}" value="8.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="fri" class="visually-hidden">Friday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="fri" name="fri"
-                       th:value="${timesheet.days[4].hours}" value="8.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="sat" class="visually-hidden">Saturday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="sat" name="sat"
-                       th:value="${timesheet.days[5].hours}" value="0.0">
-                <div class="invalid-feedback">Max 24 hours per day.</div>
-              </td>
-              <td>
-                <label for="sun" class="visually-hidden">Sunday hours</label>
-                <input type="number" step="0.25" min="0" max="24" class="form-control day-input" id="sun" name="sun"
-                       th:value="${timesheet.days[6].hours}" value="0.0">
+              <td th:each="day, stat : *{days}">
+                <!-- Hidden field to preserve the date for each day -->
+                <input type="hidden" th:field="*{days[__${stat.index}__].date}" />
+
+                <label th:for="${'day-' + stat.index}" class="visually-hidden">Day hours</label>
+                <input type="number" step="0.25" min="0" max="24"
+                       class="form-control day-input"
+                       th:id="${'day-' + stat.index}"
+                       th:field="*{days[__${stat.index}__].hours}"
+                       value="0.0">
                 <div class="invalid-feedback">Max 24 hours per day.</div>
               </td>
             </tr>

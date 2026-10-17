@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
-import springbootapp.minivms.model.dto.workitemdto.WorkerCardDto;
-import springbootapp.minivms.model.dto.workitemdto.WorkerDetailDto;
+import springbootapp.minivms.model.dto.workitemdto.worker.WorkerCardDto;
+import springbootapp.minivms.model.dto.workitemdto.worker.WorkerDetailDto;
 import springbootapp.minivms.services.personservices.WorkerService;
 
 import java.util.List;

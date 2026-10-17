@@ -1,4 +1,4 @@
-package springbootapp.minivms.model.dto.workitemdto;
+package springbootapp.minivms.model.dto.workitemdto.timesheet;
 
 import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 

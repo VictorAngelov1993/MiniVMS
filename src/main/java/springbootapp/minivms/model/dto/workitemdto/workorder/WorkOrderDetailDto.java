@@ -1,17 +1,23 @@
-package springbootapp.minivms.model.dto.workitemdto;
+package springbootapp.minivms.model.dto.workitemdto.workorder;
 
 import springbootapp.minivms.model.entities.enums.WorkOrderStatus;
+import springbootapp.minivms.model.entities.persons.Worker;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class WorkOrderCardDto {
+public class WorkOrderDetailDto {
     private String id;
     private WorkOrderStatus status;
     private String assignedWorkerName;
     private LocalDate startDate;
     private LocalDate endDate;
+    private BigDecimal payRate;
+    private String notes;
+    // TODO implement the assignedWorker this should be done after the worker is created.
+    private Worker assignedWorker;
 
-    public WorkOrderCardDto() {
+    public WorkOrderDetailDto() {
 
     }
 
@@ -53,5 +59,29 @@ public class WorkOrderCardDto {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public BigDecimal getPayRate() {
+        return payRate;
+    }
+
+    public void setPayRate(BigDecimal payRate) {
+        this.payRate = payRate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public Worker getAssignedWorker() {
+        return assignedWorker;
+    }
+
+    public void setAssignedWorker(Worker assignedWorker) {
+        this.assignedWorker = assignedWorker;
     }
 }

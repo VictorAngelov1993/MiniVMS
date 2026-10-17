@@ -1,7 +1,7 @@
 package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
-import springbootapp.minivms.model.dto.workitemdto.WorkerCardDto;
+import springbootapp.minivms.model.dto.workitemdto.worker.WorkerCardDto;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
 

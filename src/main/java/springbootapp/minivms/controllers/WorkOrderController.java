@@ -6,15 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
-import springbootapp.minivms.model.dto.workitemdto.*;
-import springbootapp.minivms.model.entities.workitems.JobPosting;
+import springbootapp.minivms.model.dto.workitemdto.jobposting.JobPostingDetailsDto;
+import springbootapp.minivms.model.dto.workitemdto.jobseeker.JobSeekerSubmitDto;
+import springbootapp.minivms.model.dto.workitemdto.workorder.WorkOrderCardDto;
+import springbootapp.minivms.model.dto.workitemdto.workorder.WorkOrderCreateDto;
+import springbootapp.minivms.model.dto.workitemdto.workorder.WorkOrderDetailDto;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerSubmissionService;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class WorkOrderController {
