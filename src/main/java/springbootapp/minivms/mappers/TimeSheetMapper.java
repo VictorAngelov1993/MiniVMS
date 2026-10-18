@@ -2,6 +2,7 @@ package springbootapp.minivms.mappers;
 
 import org.springframework.stereotype.Component;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetDayDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditBuyerViewDto;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditDto;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetRowDto;
 import springbootapp.minivms.model.entities.workitems.timesheets.TimeSheet;
@@ -43,6 +44,23 @@ public class TimeSheetMapper {
         timeSheetEditDto.setDays(daysAsDto);
         timeSheetEditDto.setNotes(timeSheet.getNotes());
         return timeSheetEditDto;
+    }
+
+    public TimeSheetEditBuyerViewDto getEditDtoForBuyerViewFromTimeSheet(TimeSheet timeSheet) {
+        String workOrderId = timeSheet.getWorkOrder().getWorkOrderId();
+        TimeSheetEditBuyerViewDto dto = new TimeSheetEditBuyerViewDto();
+        dto.setId(timeSheet.getTimeSheetId());
+        dto.setNotes(timeSheet.getNotes());
+        dto.setStatus(timeSheet.getStatus());
+        dto.setWeekStartDate(timeSheet.getWeekStartDay());
+        dto.setWorkerName(timeSheet.getWorkOrder().getWorker().getFullName());
+        List<TimeSheetDayDto> daysAsDto = this.mapListOfTimeSheetDaysToListOfDtos(timeSheet.getDays());
+        dto.setDays(daysAsDto);
+        dto.setTotalHours(daysAsDto.stream().map(TimeSheetDayDto::getHours)
+                .filter(hours -> hours != null)
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
+        return dto;
+
     }
 
     private TimeSheetDayDto mapTimeSheetDayToDto(TimeSheetDay timeSheetDay) {

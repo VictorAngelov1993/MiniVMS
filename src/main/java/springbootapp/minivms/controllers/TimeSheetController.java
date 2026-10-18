@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import springbootapp.minivms.model.dto.persondto.LoggedUserDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditBuyerViewDto;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditDto;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetRowDto;
 import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetSubmitDto;
@@ -69,6 +70,15 @@ public class TimeSheetController {
         model.addAttribute("timesheets", buyerPendingApprovalTimeSheets);
 
         return "buyer/timesheets";
+    }
+
+    @GetMapping("/buyer/timesheets/{id}/edit")
+    public String displayTimeSheetEditPageForBuyer(@PathVariable String id,
+                                                   Model model) {
+        TimeSheetEditBuyerViewDto timeSheet = this.timeSheetService.getTimeSheetEditBuyerViewDto(id);
+        model.addAttribute("timesheet", timeSheet);
+
+        return "buyer/timesheet-edit";
     }
 
 }

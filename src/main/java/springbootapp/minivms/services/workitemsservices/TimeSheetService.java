@@ -2,10 +2,7 @@ package springbootapp.minivms.services.workitemsservices;
 
 import org.springframework.stereotype.Service;
 import springbootapp.minivms.mappers.TimeSheetMapper;
-import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetDayDto;
-import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetEditDto;
-import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetRowDto;
-import springbootapp.minivms.model.dto.workitemdto.timesheet.TimeSheetSubmitDto;
+import springbootapp.minivms.model.dto.workitemdto.timesheet.*;
 import springbootapp.minivms.model.entities.enums.TimeSheetStatus;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.model.entities.workitems.WorkOrder;
@@ -121,6 +118,10 @@ public class TimeSheetService {
 
     public TimeSheetEditDto getTimeSheetEditDtoById(String timeSheetId) {
         return this.timeSheetMapper.getEditDtoFromTimeSheet(this.getTimeSheetById(timeSheetId));
+    }
+
+    public TimeSheetEditBuyerViewDto getTimeSheetEditBuyerViewDto(String timeSheetId) {
+        return this.timeSheetMapper.getEditDtoForBuyerViewFromTimeSheet(this.getTimeSheetById(timeSheetId));
     }
 
     public void submitTimeSheet(TimeSheetSubmitDto timeSheetSubmitDto) {

@@ -3,19 +3,13 @@
   Page: buyer/timesheet-edit.html
   Route: GET /buyer/timesheets/{id}/edit
   Purpose: Read-only weekly timesheet view for buyers (buyers cannot edit hours,
-           only review submitted timesheets). Compare with /worker/timesheet-edit.html
-           which allows editing.
+           only review submitted timesheets).
   Model attributes expected:
-- timesheet (id, workerName, weekStartDate, weekEndDate, status,
-
-                  days: { mon, tue, wed, thu, fri, sat, sun } hours, totalHours)
-  Action:
-- POST /buyer/timesheets/{id}/approve : Approve Timesheet (confirmed via modal).
-- POST /buyer/timesheets/{id}/reject : Reject Timesheet (confirmed via modal with optional/required reason).
-      On success the timesheet's status transitions accordingly and the buyer is
-      redirected back to this page with the updated status.
-      The Approve and Reject actions are only shown while status == 'Submitted' (i.e. not
-      yet approved/rejected and not a draft still being edited by the worker).
+  - timesheet (id, workerName, weekStartDate, weekEndDate, status, totalHours,
+               days: List of day objects containing hours)
+  Actions:
+  - POST /buyer/timesheets/{id}/approve : Approve Timesheet
+  - POST /buyer/timesheets/{id}/reject : Reject Timesheet with optional reason
 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -150,18 +144,15 @@
           </tr>
           </thead>
           <tbody>
+          <!-- Iterate over the days list securely as read-only values -->
           <tr>
-            <td th:text="${timesheet != null ? timesheet.days.mon : '8.0'}">8.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.tue : '8.0'}">8.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.wed : '8.0'}">8.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.thu : '8.0'}">8.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.fri : '8.0'}">8.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.sat : '0.0'}">0.0</td>
-            <td th:text="${timesheet != null ? timesheet.days.sun : '0.0'}">0.0</td>
+            <td th:each="day : ${timesheet != null ? timesheet.days : {}}" class="text-center align-middle">
+              <span th:text="${day.hours}">0.0</span>
+            </td>
           </tr>
           <tr class="timesheet-total-row">
-            <td colspan="6" class="text-end">Total Hours</td>
-            <td th:text="${timesheet != null ? timesheet.totalHours : '40.0'}">40.0</td>
+            <td colspan="6" class="text-end fw-bold">Weekly Total</td>
+            <td id="weekly-total" class="fw-bold text-center" th:text="${timesheet != null ? timesheet.totalHours : '40.00'}">40.00</td>
           </tr>
           </tbody>
         </table>
@@ -173,7 +164,7 @@
 
       <!-- Approve & Reject actions: only shown while the timesheet is awaiting approval -->
       <div class="d-flex flex-wrap gap-2 mt-3"
-           th:if="${(timesheet != null ? timesheet.status : 'Submitted') == 'Submitted'}">
+           th:if="${timesheet != null and #strings.equalsIgnoreCase(timesheet.status, 'SUBMITTED')}">
         <button type="button" class="btn btn-success" data-confirm-modal="#confirmApproveModal"
                 data-confirm-target-form="approveTimesheetForm">
           <i class="bi bi-check-circle" aria-hidden="true"></i> Approve Timesheet
@@ -200,13 +191,15 @@
 
       <!-- Approve Form -->
       <form id="approveTimesheetForm" action="/buyer/timesheets/1/approve" method="post"
-            th:action="@{'/buyer/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/approve'}">
+            th:action="@{'/buyer/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/approve'}"
+            th:object="${timesheet}">
         <input type="hidden" name="_csrf" th:if="${_csrf}" th:value="${_csrf.token}"/>
       </form>
 
       <!-- Reject Form -->
       <form id="rejectTimesheetForm" action="/buyer/timesheets/1/reject" method="post"
-            th:action="@{'/buyer/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/reject'}">
+            th:action="@{'/buyer/timesheets/' + ${timesheet != null ? timesheet.id : 1} + '/reject'}"
+            th:object="${timesheet}">
         <input type="hidden" name="_csrf" th:if="${_csrf}" th:value="${_csrf.token}"/>
         <!-- Optional hidden field if rejection reason is collected via the modal and appended dynamically by JS -->
         <input type="hidden" id="rejectReasonInput" name="reason"/>
