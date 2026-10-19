@@ -17,6 +17,7 @@ import springbootapp.minivms.services.personservices.SupplierService;
 import springbootapp.minivms.services.personservices.WorkerService;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
 import springbootapp.minivms.services.workitemsservices.JobSeekerService;
+import springbootapp.minivms.services.workitemsservices.TimeSheetService;
 import springbootapp.minivms.services.workitemsservices.WorkOrderService;
 
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class DashboardController {
     private final JobSeekerService jobSeekerService;
     private final WorkOrderService workOrderService;
     private final WorkerService workerService;
+    private final TimeSheetService timeSheetService;
 
     @Autowired
     public DashboardController(JobPostingService jobPostingService,
@@ -39,13 +41,15 @@ public class DashboardController {
                                SupplierService supplierService,
                                JobSeekerService jobSeekerService,
                                WorkOrderService workOrderService,
-                               WorkerService workerService) {
+                               WorkerService workerService,
+                               TimeSheetService timeSheetService) {
         this.jobPostingService = jobPostingService;
         this.buyerRepository = buyerRepository;
         this.supplierService = supplierService;
         this.jobSeekerService = jobSeekerService;
         this.workOrderService = workOrderService;
         this.workerService = workerService;
+        this.timeSheetService = timeSheetService;
     }
 
 
@@ -74,8 +78,9 @@ public class DashboardController {
 
         long countWorkers = this.workOrderService.countBuyerWorkers(loggedUser.getUuid());
         stats.setActiveWorkerCount(countWorkers);
-        // TODO later here I need to count and add the other status to the stats and then to the model.
 
+        long countPendingTimeSheets = this.timeSheetService.countPendingTimeSheetForBuyerByBuyerUuid(loggedUser.getUuid());
+        stats.setPendingTimesheetCount(countPendingTimeSheets);
         // add the status to the model so that thymeleaf can get them.
         model.addAttribute("stats", stats);
 

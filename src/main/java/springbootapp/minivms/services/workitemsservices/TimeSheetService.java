@@ -155,4 +155,8 @@ public class TimeSheetService {
         return this.timeSheetRepository.getAllPendingApprovalTimeSheetsForTheBuyer(buyerUuid);
     }
 
+    public long countPendingTimeSheetForBuyerByBuyerUuid(UUID buyerUuid) {
+        return this.timeSheetRepository.countPendingTimeSheetsForBuyer(buyerUuid);
+    }
+
 }
