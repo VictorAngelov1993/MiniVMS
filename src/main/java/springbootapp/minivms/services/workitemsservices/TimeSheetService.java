@@ -159,4 +159,15 @@ public class TimeSheetService {
         return this.timeSheetRepository.countPendingTimeSheetsForBuyer(buyerUuid);
     }
 
+    public void approveTimeSheet(String timeSheetId) {
+        TimeSheet timeSheetToApprove = this.timeSheetRepository.getTimeSheetByTimeSheetId(timeSheetId);
+        timeSheetToApprove.setStatus(TimeSheetStatus.APPROVED);
+        this.timeSheetRepository.save(timeSheetToApprove);
+    }
+    public void rejectTimeSheet(String timeSheetId) {
+        TimeSheet timeSheetToReject = this.timeSheetRepository.getTimeSheetByTimeSheetId(timeSheetId);
+        timeSheetToReject.setStatus(TimeSheetStatus.REJECTED);
+        this.timeSheetRepository.save(timeSheetToReject);
+    }
+
 }
