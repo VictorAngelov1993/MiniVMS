@@ -62,8 +62,8 @@ public class JobSeekerService {
         this.jobSeekerRepository.save(jobSeeker);
     }
 
-    public List<JobSeekerSubmitDto> getAllJobSeekersSuitableForSubmission() {
-        List<JobSeeker> jobSeekers = this.jobSeekerRepository.findAll();
+    public List<JobSeekerSubmitDto> getAllJobSeekersSuitableForSubmission(UUID supplierUuid) {
+        List<JobSeeker> jobSeekers = this.jobSeekerRepository.getAllBySupplier_Uuid(supplierUuid);
         return this.jobSeekerMapper.mapJobSeekersToJobSeekerSubmitDto(jobSeekers);
     }
 

@@ -71,8 +71,8 @@ public class JobSeekerController {
                                   Model model) {
 
         LoggedUserDto loggedUser = (LoggedUserDto) session.getAttribute("loggedUser");
-        // Get all the Job Seekers that are suitable for submission
-        List<JobSeekerSubmitDto> jobSeekers = this.jobSeekerService.getAllJobSeekersSuitableForSubmission();
+        // Get all the Job Seekers that are suitable for submission for the logged Supplier
+        List<JobSeekerSubmitDto> jobSeekers = this.jobSeekerService.getAllJobSeekersSuitableForSubmission(loggedUser.getUuid());
         // Get the Job Posting to which we are going to submit the Job Seeker
         JobPostingDetailsDto jobPosting = this.jobPostingService.getJobPostingCreateDtoById(jobPostingId);
 

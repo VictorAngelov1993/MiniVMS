@@ -94,5 +94,7 @@ public class WorkOrderController {
         return "buyer/workorder-details";
     }
 
+    // TODO create a method for the buyer that will close the Work Order
+
 
 }

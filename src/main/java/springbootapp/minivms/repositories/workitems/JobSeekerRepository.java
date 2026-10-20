@@ -16,4 +16,6 @@ public interface JobSeekerRepository extends JpaRepository<JobSeeker, UUID> {
     JobSeeker getJobSeekerByJobSeekerId(String jobSeekerId);
 
     long countBySupplier(Supplier supplier);
+
+    List<JobSeeker> getAllBySupplier_Uuid(UUID supplierUuid);
 }
