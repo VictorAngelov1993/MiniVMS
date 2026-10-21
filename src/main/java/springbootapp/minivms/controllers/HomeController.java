@@ -8,6 +8,7 @@ public class HomeController {
 
     @GetMapping("/access-denied")
     public String accessDenied() {
+        // TODO maybe the go to home button should send the user to the dashboard intend of login page
         return "access-denied";
     }
 }
