@@ -1,5 +1,7 @@
 package springbootapp.minivms.controllers;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,11 +37,19 @@ public class LoginController {
     @PostMapping("/login")
     public String processLogin(@ModelAttribute("personLoginDto") PersonLoginDto personLoginDto,
                                HttpSession session,
-                               Model model) {
+                               Model model,
+                               HttpServletResponse response) {
         String username = personLoginDto.getUsername();
         String password = personLoginDto.getPassword();
 
         // TODO implement the remember me function.
+
+
+        // Below is just a test to see how Cookies behave.
+        // TODO can be removed once behavior is observed
+        Cookie cookie = new Cookie("cookieFromLoginController", "createdViaLoginController");
+        cookie.setMaxAge(1000);
+        response.addCookie(cookie);
 
         try{
 

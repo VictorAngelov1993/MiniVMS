@@ -1,5 +1,6 @@
 package springbootapp.minivms.interceptor;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -40,6 +41,13 @@ public class UserTypeInterceptor implements HandlerInterceptor {
             response.sendRedirect("/access-denied");
             return false;
         }
+
+
+        // Below is just a test to see how Cookies behave.
+        // TODO can be removed once behavior is observed
+        Cookie cookie = new Cookie("CookieFromInterceptor", "thisCookiesIsFromTheInterceptor");
+        cookie.setMaxAge(1000);
+        response.addCookie(cookie);
 
         return true;
     }
