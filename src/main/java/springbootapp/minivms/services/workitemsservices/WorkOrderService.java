@@ -95,6 +95,16 @@ public class WorkOrderService {
         return this.workOrderMapper.mapWorkOrderToWorkOrderDetailDto(workOrder);
     }
 
+    public WorkOrderDetailDto getWorkOrderForRegisteredWorker(String workOrderId) {
+        WorkOrder workOrder = this.workOrderRepository.findWorkOrderByWorkOrderId(workOrderId)
+                .orElseThrow(() -> new RuntimeException("Work Order not found with ID: " + workOrderId));
+
+        WorkOrderDetailDto dto = this.workOrderMapper.mapWorkOrderToWorkOrderDetailDto(workOrder);
+        dto.setAssignedWorker(workOrder.getWorker());
+        return dto;
+    }
+
+
     public WorkOrder getWorkOrderById(String workOrderId) {
         Optional<WorkOrder> optionalWorkOrder = this.workOrderRepository.findWorkOrderByWorkOrderId(workOrderId);
         return optionalWorkOrder.orElseThrow(() -> new RuntimeException("Invalid Work Order id"));
@@ -110,6 +120,12 @@ public class WorkOrderService {
 
     public long countWorkerPendingTimeSheets(Worker worker) {
         return this.timeSheetRepository.countAllPendingWorkerTimeSheets(worker);
+    }
+
+    public void closeWorkOrderByWorkOrderId(String workOrderId) {
+        WorkOrder workOrderToClose = this.workOrderRepository.getWorkOrderByWorkOrderId(workOrderId);
+        workOrderToClose.setStatus(WorkOrderStatus.CLOSED);
+        this.workOrderRepository.save(workOrderToClose);
     }
 
 

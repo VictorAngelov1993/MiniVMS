@@ -87,14 +87,18 @@ public class WorkOrderController {
     public String openWorkOrderDetails(@PathVariable("id") String id,
             Model model) {
 
-        WorkOrderDetailDto workOrderDetailDto = this.workOrderService.getWorkOrderDetails(id);
+        WorkOrderDetailDto workOrderDetailDto = this.workOrderService.getWorkOrderForRegisteredWorker(id);
         model.addAttribute("workorder", workOrderDetailDto);
 
 
         return "buyer/workorder-details";
     }
 
-    // TODO create a method for the buyer that will close the Work Order
+    @PostMapping("buyer/workorders/{id}/close")
+    public String closeWorkOrder(@PathVariable("id") String workOrderId) {
+        this.workOrderService.closeWorkOrderByWorkOrderId(workOrderId);
+        return "redirect:/buyer/workorders";
+    }
 
 
 }

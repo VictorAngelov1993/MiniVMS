@@ -14,7 +14,6 @@ public class WorkOrderDetailDto {
     private LocalDate endDate;
     private BigDecimal payRate;
     private String notes;
-    // TODO implement the assignedWorker this should be done after the worker is created.
     private Worker assignedWorker;
 
     public WorkOrderDetailDto() {

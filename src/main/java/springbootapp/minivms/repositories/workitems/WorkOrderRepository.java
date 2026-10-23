@@ -33,4 +33,5 @@ public interface WorkOrderRepository extends JpaRepository<WorkOrder, UUID> {
     long countWorkOrderBySupplierAndStatus(Supplier supplier, WorkOrderStatus status);
 
 
+    WorkOrder getWorkOrderByWorkOrderId(String workOrderId);
 }
