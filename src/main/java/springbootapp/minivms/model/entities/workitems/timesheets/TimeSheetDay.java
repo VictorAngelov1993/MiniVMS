@@ -22,6 +22,8 @@ public class TimeSheetDay {
     @Column(precision = 5, scale = 2)
     private BigDecimal hours;
 
+    private boolean editable;
+
 
     public TimeSheetDay() {
 
@@ -56,5 +58,11 @@ public class TimeSheetDay {
         this.hours = hours;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
 
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
 }

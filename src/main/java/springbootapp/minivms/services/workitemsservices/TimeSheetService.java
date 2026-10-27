@@ -84,16 +84,33 @@ public class TimeSheetService {
                 timeSheet.setTimeSheetId(this.generateTimeSheetId());
 
                 for(int a = 0; a < 7; a++) {
+                    LocalDate currentDate = weekStartDay.plusDays(a);
+
                     TimeSheetDay timeSheetDay = new TimeSheetDay();
                     timeSheetDay.setTimeSheet(timeSheet);
                     timeSheetDay.setDate(weekStartDay.plusDays(a));
+
+                    // Below two if statements prevent the worker to add hours on days outside his work order dates
+                    if(currentDate.isBefore(start)) {
+                        timeSheetDay.setHours(BigDecimal.ZERO);
+                        timeSheetDay.setEditable(false);
+                        timeSheet.getDays().add(timeSheetDay);
+                        continue;
+                    }
+
+                    if(currentDate.isAfter(end)) {
+                        timeSheetDay.setHours(BigDecimal.ZERO);
+                        timeSheetDay.setEditable(false);
+                        timeSheet.getDays().add(timeSheetDay);
+                        continue;
+                    }
 
                     if(a < 5) {
                         timeSheetDay.setHours(BigDecimal.valueOf(8));
                     } else {
                         timeSheetDay.setHours(BigDecimal.ZERO);
                     }
-
+                    timeSheetDay.setEditable(true);
                     timeSheet.getDays().add(timeSheetDay);
                 }
 
@@ -106,6 +123,8 @@ public class TimeSheetService {
         }
 
     }
+
+
 
     private String generateTimeSheetId() {
         long timeSheetCount = this.timeSheetRepository.count();
@@ -139,6 +158,10 @@ public class TimeSheetService {
             //below we get each time sheet day from the list and we add the value from the dto
             TimeSheetDay timeSheetDay = timeSheetDays.get(a);
             TimeSheetDayDto timeSheetDayDto = timeSheetDayDtos.get(a);
+            //Below is additional secure measure to prevent the worker to add time in days outside his work order dates.
+            if(!timeSheetDay.isEditable()) {
+                continue;
+            }
 
             timeSheetDay.setHours(timeSheetDayDto.getHours());
         }

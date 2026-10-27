@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class TimeSheetDayDto {
     private LocalDate date;
     private BigDecimal hours;
+    private boolean editable;
 
     public TimeSheetDayDto() {
 
@@ -25,5 +26,13 @@ public class TimeSheetDayDto {
 
     public void setHours(BigDecimal hours) {
         this.hours = hours;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }

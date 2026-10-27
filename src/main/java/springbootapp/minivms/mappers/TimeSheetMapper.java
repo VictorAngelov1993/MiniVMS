@@ -67,6 +67,7 @@ public class TimeSheetMapper {
         TimeSheetDayDto dto = new TimeSheetDayDto();
         dto.setDate(timeSheetDay.getDate());
         dto.setHours(timeSheetDay.getHours());
+        dto.setEditable(timeSheetDay.isEditable());
         return dto;
     }
     private List<TimeSheetDayDto> mapListOfTimeSheetDaysToListOfDtos(List<TimeSheetDay> timeSheetDays) {

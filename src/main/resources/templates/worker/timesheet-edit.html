@@ -158,6 +158,7 @@
                        class="form-control day-input"
                        th:id="${'day-' + stat.index}"
                        th:field="*{days[__${stat.index}__].hours}"
+                       th:disabled="${!day.editable}"
                        value="0.0">
                 <div class="invalid-feedback">Max 24 hours per day.</div>
               </td>
