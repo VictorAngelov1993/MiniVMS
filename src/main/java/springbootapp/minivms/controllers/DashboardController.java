@@ -13,6 +13,7 @@ import springbootapp.minivms.model.entities.persons.Buyer;
 import springbootapp.minivms.model.entities.persons.Supplier;
 import springbootapp.minivms.model.entities.persons.Worker;
 import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
+import springbootapp.minivms.services.personservices.BuyerService;
 import springbootapp.minivms.services.personservices.SupplierService;
 import springbootapp.minivms.services.personservices.WorkerService;
 import springbootapp.minivms.services.workitemsservices.JobPostingService;
@@ -26,9 +27,8 @@ import java.util.Optional;
 public class DashboardController {
 
     private final JobPostingService jobPostingService;
-    // Below should be a Service
-    // TODO fix later
-    private final BuyerRepository buyerRepository;
+
+    private final BuyerService buyerService;
     private final SupplierService supplierService;
     private final JobSeekerService jobSeekerService;
     private final WorkOrderService workOrderService;
@@ -37,14 +37,14 @@ public class DashboardController {
 
     @Autowired
     public DashboardController(JobPostingService jobPostingService,
-                               BuyerRepository buyerRepository,
+                               BuyerService buyerService,
                                SupplierService supplierService,
                                JobSeekerService jobSeekerService,
                                WorkOrderService workOrderService,
                                WorkerService workerService,
                                TimeSheetService timeSheetService) {
         this.jobPostingService = jobPostingService;
-        this.buyerRepository = buyerRepository;
+        this.buyerService = buyerService;
         this.supplierService = supplierService;
         this.jobSeekerService = jobSeekerService;
         this.workOrderService = workOrderService;
@@ -61,7 +61,7 @@ public class DashboardController {
         // create empty stats DTO to fill later
         BuyerDashboardStatsDto stats = new BuyerDashboardStatsDto();
         // Get the Buyer who is the logged user.
-        Optional<Buyer> getBuyer = this.buyerRepository.getBuyerByUuid(loggedUser.getUuid());
+        Optional<Buyer> getBuyer = this.buyerService.getBuyerByUuid(loggedUser.getUuid());
         Buyer buyer = null;
         try {
             buyer = getBuyer.orElseThrow(() -> new IllegalStateException("Something went wrong. Contact Support"));

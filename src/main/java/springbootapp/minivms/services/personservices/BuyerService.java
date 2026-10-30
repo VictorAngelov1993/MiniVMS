@@ -7,6 +7,9 @@ import springbootapp.minivms.repositories.personrepositories.BuyerRepository;
 import springbootapp.minivms.repositories.personrepositories.SupplierRepository;
 import springbootapp.minivms.repositories.personrepositories.WorkerRepository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class BuyerService {
 
@@ -32,5 +35,9 @@ public class BuyerService {
         }
         this.buyerRepository.save(buyer);
 
+    }
+
+    public Optional<Buyer> getBuyerByUuid(UUID uuid) {
+        return this.buyerRepository.getBuyerByUuid(uuid);
     }
 }
